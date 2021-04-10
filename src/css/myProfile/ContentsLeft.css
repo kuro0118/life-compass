@@ -1,0 +1,33 @@
+.contents-left-container {
+    display: inline-block;
+    width: 300px;
+    border: 1.5px solid #aeaaaa;
+    background-color: white;
+    vertical-align: top;
+    margin-top: 68px;
+}
+
+.contents-review-group {
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.contents-review-icon-group {
+    display: inline-block;
+    width: 40%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.goodIcon {
+    border-top: 1px solid #aeaaaa;
+    border-right: 1px solid #aeaaaa;
+    border-bottom: 1px solid #aeaaaa;
+}
+
+.badIcon {
+    border-top: 1px solid #aeaaaa;
+    border-bottom: 1px solid #aeaaaa;
+}

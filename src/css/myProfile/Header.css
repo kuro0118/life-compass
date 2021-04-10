@@ -1,0 +1,15 @@
+.header-heading {
+  display: inline-block;
+  width: 150px;
+  color: #194350;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.header-blank-line {
+  display: inline-block;
+  width: 900px;
+  border: 1px solid #aeaaaa;
+  vertical-align: middle;
+  margin-bottom: 10px;
+}
