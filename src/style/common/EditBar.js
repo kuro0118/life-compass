@@ -4,7 +4,7 @@ import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Editor from '@draft-js-plugins/editor';
 // import createHashtagPlugin from '@draft-js-plugins/hashtag';
-// import createLinkifyPlugin from '@draft-js-plugins/linkify';
+import createLinkifyPlugin from '@draft-js-plugins/inline-toolbar';
 import { RichUtils } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import '../../css/myProfile/DraftEditor.css'
