@@ -1,10 +1,14 @@
 .contents-left-container {
     display: inline-block;
+    vertical-align: top;
     width: 300px;
+    margin-top: 68px;
+    margin-bottom: 50px;
+}
+
+.contents-left-top-container {
     border: 1.5px solid #aeaaaa;
     background-color: white;
-    vertical-align: top;
-    margin-top: 68px;
 }
 
 .contents-review-group {
@@ -30,4 +34,15 @@
 .badIcon {
     border-top: 1px solid #aeaaaa;
     border-bottom: 1px solid #aeaaaa;
+}
+
+.contents-left-bottom-container {
+    border: 1.5px solid #aeaaaa;
+    background-color: white;
+    margin-top: 20px;
+    padding: 20px 0px;
+}
+
+.contents-base-profile-group {
+    line-height: 2.5em;
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useState, useEffect, useReducer, createRef } from 'react'
 import Box from '@material-ui/core/Box';
 import {
     ContentsTabs,
@@ -12,24 +12,60 @@ import {
     ContentsTableHeaderCell
 } from '../style/profile/Contents';
 import '../css/myProfile/ContentsRight.css'
+import { ActionToolBar, EditIconButton } from '../style/common/ToolBar';
+import { makeStyles } from '@material-ui/core';
+import { EditModal, EditorModal, TitleForm } from '../style/common/Modal';
+import { Editor, EditorState } from 'draft-js';
+import Modal from '@material-ui/core/Modal';
 
 const ProfileContentsRight = () => {
 
     // chips: Tabsコンポーネントは状態管理をしないとエラーが出てしまうため、注意。
     const [value, setValue] = useState(0);
+    const [meisaiId, setId] = useState('00');
+    const [bodyText, setBodyText] = useState('test');
+    const [modalStatus, setModalStatus] = useState(false);
+    const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+    // chips: 子コンポーネントへ渡す、親の参照を作成
+    const profileRef = createRef();
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
     const handleClick = (id) => {
+        setId(id);
         console.log(id);
         console.log("test");
+    };
+
+    const handleMouseOverForDebug = (id) => {
+        // setDisplayStatus("block");
+        setId(id);
+    };
+
+    const handleMouseOutForDebug = (id) => {
+        // setDisplayStatus("none");
+        setId(id);
     };
 
     function createData(id, title, discription) {
         return { id, title, discription };
     }
+
+    const editHandleClick = () => {
+        console.log("test");
+        setModalStatus(true)
+    }
+
+    const editHandleClose = () => {
+        setModalStatus(false)
+    }
+
+    const onChange = () => {
+        setEditorState(editorState);
+    };
 
     const gridTempRows = [
         createData('01', 'あなたの強みは何ですか？', '学生の時、体育会系の部活に入っていたので、体力には自信があります。'),
@@ -50,19 +86,34 @@ const ProfileContentsRight = () => {
                     </ContentsTabs>
                 </Box>
                 <Box className="contents-grid-group">
-                    <ContentsTable>
+                    <ContentsTable
+                        onMouseLeave={() => handleMouseOutForDebug('00')}
+                    >
                         <ContentsTableHead>
                             <ContentsTableRow>
                                 <ContentsTableHeaderCell >タイトル</ContentsTableHeaderCell >
                                 <ContentsTableHeaderCell  >本文</ContentsTableHeaderCell >
                             </ContentsTableRow>
                         </ContentsTableHead>
-                        <ContentsTableBody>
+                        <ContentsTableBody >
                             {
                                 gridTempRows.map(row => (
-                                    <ContentsTableRow key={row.id} hover role="checkbox">
-                                        <ContentsTableBodyTitleCell onClick={() => handleClick(row.id)}>{row.title}</ContentsTableBodyTitleCell>
-                                        <ContentsTableBodyDescCell onClick={() => handleClick(row.id)}>{row.discription}</ContentsTableBodyDescCell>
+                                    <ContentsTableRow
+                                        key={row.id}
+                                        hover role="checkbox"
+                                        onClick={() => handleClick(row.id)}
+                                        onMouseEnter={() => handleMouseOverForDebug(row.id)}
+                                        onMouseLeave={() => handleMouseOutForDebug(row.id)}
+                                    >
+                                        <ContentsTableBodyTitleCell
+                                            onClick={() => handleClick(row.id)}
+                                        >
+                                            {row.title}
+                                        </ContentsTableBodyTitleCell>
+                                        <ContentsTableBodyDescCell>
+                                            {row.discription}
+                                            {meisaiId === row.id ? <ActionToolBar /> : <Box style={{ height: "45px" }}></Box>}
+                                        </ContentsTableBodyDescCell>
                                     </ContentsTableRow>
                                 ))
                             }
@@ -70,6 +121,16 @@ const ProfileContentsRight = () => {
                     </ContentsTable>
                 </Box>
             </Box>
+            <EditIconButton
+                onClick={() => editHandleClick()}
+            />
+            <EditModal
+                open={modalStatus}
+                onClose={editHandleClose}
+                ref={profileRef}
+            />
+            {/* <Editor editorState={editorState} onChange={onChange}>
+                </Editor> */}
         </>
     )
 }

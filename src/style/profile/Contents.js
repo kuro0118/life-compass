@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Table from '@material-ui/core/Table';
@@ -64,18 +64,15 @@ export const ContentsTable = withStyles({
         width: '100%',
         overflowX: 'auto',
         marginTop: '20px'
-    },
-    table: {
-        minWidth: 650,
     }
 })(Table)
 
 export const ContentsTableHead = withStyles({
     root: {
-       backgroundColor: '#1597BB',
-       fontSize: '14px',
-       color: 'white',
-       fontWeight: '650'
+        backgroundColor: '#1597BB',
+        fontSize: '14px',
+        color: 'white',
+        fontWeight: '650'
     }
 })(TableHead)
 
@@ -85,7 +82,7 @@ export const ContentsTableRow = withStyles({
 
 export const ContentsTableBody = withStyles({
     root: {
-       backgroundColor: 'white',
+        backgroundColor: 'white'
     }
 })(TableBody)
 
@@ -101,11 +98,13 @@ export const ContentsTableHeaderCell = withStyles({
 export const ContentsTableBodyTitleCell = withStyles({
     root: {
         color: 'black',
+        width: '30%',
+        height: '35px',
         fontSize: '12px',
         fontWeight: '600',
         minHeight: '100px',
         paddingTop: '5px',
-        paddingBottom: '20px',
+        paddingBottom: '0px',
         verticalAlign: 'top'
     }
 })(TableCell)
@@ -113,10 +112,11 @@ export const ContentsTableBodyTitleCell = withStyles({
 export const ContentsTableBodyDescCell = withStyles({
     root: {
         color: 'black',
+        width: '65%',
         fontSize: '12px',
         minHeight: '100px',
         paddingTop: '5px',
-        paddingBottom: '20px',
+        paddingBottom: '0px',
         verticalAlign: 'top'
     }
 })(TableCell)
@@ -205,5 +205,51 @@ export const ContentsReviewCount = withStyles({
             '"Segoe UI Emoji"',
             '"Segoe UI Symbol"',
         ],
+    }
+})(Typography)
+
+export const ContentsProfileItemLabel = withStyles({
+    root: {
+        fontSize: '14px',
+        fontWeight: '700',
+        color: 'black',
+        textAlign: 'center',
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ],
+        display: 'inline-block',
+        width: '40%'
+    }
+})(Typography)
+
+export const ContentsProfileItemValue = withStyles({
+    root: {
+        fontSize: '12px',
+        color: 'black',
+        textAlign: 'center',
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ],
+        display: 'inline-block',
+        width: '55%',
+        textAlign: 'left'
     }
 })(Typography)
