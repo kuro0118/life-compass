@@ -2,7 +2,10 @@ import React, { forwardRef } from 'react'
 import Box from '@material-ui/core/Box';
 import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Editor, RichUtils } from 'draft-js';
+import Editor from '@draft-js-plugins/editor';
+// import createHashtagPlugin from '@draft-js-plugins/hashtag';
+// import createLinkifyPlugin from '@draft-js-plugins/linkify';
+import { RichUtils } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import '../../css/myProfile/DraftEditor.css'
 
