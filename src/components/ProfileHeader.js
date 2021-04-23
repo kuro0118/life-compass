@@ -1,5 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
-import Box from '@material-ui/core/Box';
+import React from 'react'
 import '../css/myProfile/Header.css'
 
 const ProfileHeader = () => {

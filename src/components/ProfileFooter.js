@@ -1,18 +1,30 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useContext } from 'react'
 import { EditBar } from '../style/common/EditBar';
 import '../css/myProfile/Header.css'
-import { EditorState, ContentState } from 'draft-js';
-
+import ProfileContext from '../contexts/ProfileContext'
 
 const ProfileFooter = () => {
 
-    const [editorState, setEditorState] = useState(
-        () => EditorState.createWithContent(ContentState.createFromText('本文を入力')),
-    );
+    const { editorDisplayStatus } = useContext(ProfileContext);
 
+    if (editorDisplayStatus) {
+        return <DisplayedEditor />
+    } else {
+        return <NotDisplayedEditor />
+    }
+}
+
+const DisplayedEditor = () => {
     return (
         <>
-            <EditBar editorState={editorState} onChange={setEditorState}/>
+            <EditBar />
+        </>
+    )
+}
+
+const NotDisplayedEditor = () => {
+    return (
+        <>
         </>
     )
 }

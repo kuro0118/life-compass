@@ -14,20 +14,25 @@ import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 
 // chips: rootは外観
 // chips: indicatorはタブを移動した時に動く下線部
-export const ContentsTabs = withStyles({
+// chips: withStylesは既存のプロパティを再定義
+//        makeStylesは新しいプロパティを定義
+//        既存のmaterial-uiのスタイルをそのまま活かしたいのであれば、
+//        withStylesのほうがいい。
+// chips: whithStylesの第一引数にthemeを渡すことが出来る。(propsも渡せる？？)
+export const ContentsTabs = withStyles(theme => ({
     root: {
         padding: '0px',
         fontSize: '14px',
-        color: 'gray',
+        color: theme.palette.third.main,
         backgroundColor: 'inherit',
         verticalAlign: 'bottom'
     },
     indicator: {
-        backgroundColor: '#1890ff',
+        backgroundColor: theme.palette.secondary.main,
     },
-})(Tabs);
+}))(Tabs)
 
-export const ContentsTab = withStyles({
+export const ContentsTab = withStyles(theme => ({
     root: {
         textTransform: 'none',
         minWidth: 72,
@@ -49,7 +54,7 @@ export const ContentsTab = withStyles({
             opacity: 1,
         },
         '&$selected': {
-            color: '#1890ff',
+            color: theme.palette.secondary.main,
             fontWeight: 700,
         },
         '&:focus': {
@@ -57,7 +62,7 @@ export const ContentsTab = withStyles({
         },
     },
     selected: {},
-})((props) => <Tab disableRipple {...props} />);
+}))((props) => <Tab disableRipple {...props} />);
 
 export const ContentsTable = withStyles({
     root: {
@@ -67,14 +72,14 @@ export const ContentsTable = withStyles({
     }
 })(Table)
 
-export const ContentsTableHead = withStyles({
+export const ContentsTableHead = withStyles(theme => ({
     root: {
-        backgroundColor: '#1597BB',
+        backgroundColor: theme.palette.primary.main,
         fontSize: '14px',
         color: 'white',
         fontWeight: '650'
     }
-})(TableHead)
+}))(TableHead)
 
 export const ContentsTableRow = withStyles({
     root: {}
@@ -152,10 +157,10 @@ export const ContentsUserName = withStyles({
     }
 })(Typography)
 
-export const ContentsBodyText = withStyles({
+export const ContentsBodyText = withStyles(theme => ({
     root: {
         fontSize: '14px',
-        color: '#194350',
+        color: theme.palette.body.main,
         textAlign: 'center',
         fontFamily: [
             '-apple-system',
@@ -171,27 +176,27 @@ export const ContentsBodyText = withStyles({
         ],
         marginTop: '15px'
     }
-})(Typography)
+}))(Typography)
 
-export const ContentsGoodIcon = withStyles({
+export const ContentsGoodIcon = withStyles(theme => ({
     root: {
-        color: '#1890ff',
+        color: theme.palette.secondary.main,
         fontSize: '40px'
     }
-})(ThumbUpAltIcon)
+}))(ThumbUpAltIcon)
 
-export const ContentsBadIcon = withStyles({
+export const ContentsBadIcon = withStyles(theme => ({
     root: {
-        color: 'grey',
+        color: theme.palette.third.main,
         fontSize: '40px'
     }
-})(ThumbDownAltIcon)
+}))(ThumbDownAltIcon)
 
-export const ContentsReviewCount = withStyles({
+export const ContentsReviewCount = withStyles(theme => ({
     root: {
         fontSize: '14px',
         fontWeight: '700',
-        color: '#194350',
+        color: theme.palette.body.main,
         textAlign: 'center',
         fontFamily: [
             '-apple-system',
@@ -206,7 +211,7 @@ export const ContentsReviewCount = withStyles({
             '"Segoe UI Symbol"',
         ],
     }
-})(Typography)
+}))(Typography)
 
 export const ContentsProfileItemLabel = withStyles({
     root: {

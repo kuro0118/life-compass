@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'
+import React from 'react'
 import Header from '../components/ProfileHeader'
 import LeftContents from '../components/ProfileContentsLeft'
 import RightContents from '../components/ProfileContentsRight'

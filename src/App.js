@@ -1,10 +1,7 @@
-import React, { useEffect, useReducer } from 'react'
-import AppContext from '../src/contexts/AppContext'
+import React from 'react'
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import MyProfile from '../src/components/MyProfile';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
-import { colors } from '@material-ui/core';
 
 const theme = createMuiTheme({
   palette: {
@@ -13,7 +10,13 @@ const theme = createMuiTheme({
       main: '#1597BB'
     },
     secondary: {
-      main: '#1597BB'
+      main: '#1890ff'
+    },
+    third: {
+      main: '#aeaaaa'
+    },
+    body: {
+      main: '#194350'
     }
   },
 });

@@ -6,6 +6,8 @@ import ListItem from '@material-ui/core/ListItem';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import ReplyIcon from '@material-ui/icons/Reply';
 import editIcon from '../../images/editIcon.png'
+import sendIcon from '../../images/sendIcon.png'
+import foldupIcon from '../../images/foldupIcon.png'
 import Tooltip from '@material-ui/core/Tooltip';
 
 export const ActionToolBar = withStyles({
@@ -34,12 +36,12 @@ export const ActionToolBar = withStyles({
 })((props) => (
     <List className={props.classes.listStyle}>
         <Tooltip title="返信">
-            <ListItem className={props.classes.itemStyle}>
+            <ListItem className={props.classes.itemStyle} onClick={props.onReplyClick}>
                 <ReplyIcon />
             </ListItem>
         </Tooltip>
         <Tooltip title="引用">
-            <ListItem className={props.classes.itemStyle}>
+            <ListItem className={props.classes.itemStyle} onClick={props.onQuoteClick}>
                 <FormatQuoteIcon />
             </ListItem>
         </Tooltip>
@@ -52,12 +54,42 @@ export const EditIconButton = withStyles({
         color: "black",
         position: "fixed",
         right: "50px",
-        bottom: "50px",
+        bottom: "10px",
         padding: "5px",
         border: "none",
         backgroundColor: "white",
         borderRadius: "35px",
         textAlign: "center",
+        zIndex: "1",
+        '&:hover': {
+            opacity: 1,
+            cursor: 'pointer',
+            backgroundColor: '#F0F0F0'
+        }
+    }
+})((props) => (
+    // chips: propsには上記のwithStylesで定義したテーマも含まれる
+    <Box className={props.classes.boxStyle} onClick={props.onClick}>
+        <Tooltip title="コメントを入力する">
+            <img src={editIcon} alt="editIcon" />
+        </Tooltip>
+    </Box>
+));
+
+export const SendIconButton = withStyles({
+    boxStyle: {
+        width: "55px",
+        color: "black",
+        position: "absolute",
+        right: "-85px",
+        bottom: "10px",
+        padding: "5px",
+        paddingTop: "10px",
+        border: "none",
+        backgroundColor: "white",
+        borderRadius: "35px",
+        textAlign: "center",
+        zIndex: "1",
         '&:hover': {
             opacity: 1,
             cursor: 'pointer',
@@ -66,8 +98,37 @@ export const EditIconButton = withStyles({
     }
 })((props) => (
     <Box className={props.classes.boxStyle} onClick={props.onClick}>
-        <Tooltip title="フィードバックを送る">
-            <img src={editIcon} alt="feedbackIcon" />
+        <Tooltip title="コメントを送信する">
+            <img src={sendIcon} alt="sendIcon" />
+        </Tooltip>
+    </Box>
+));
+
+export const CloseIconButton = withStyles({
+    boxStyle: {
+        width: "55px",
+        color: "black",
+        position: "fixed",
+        right: "50px",
+        bottom: "10px",
+        padding: "5px",
+        paddingTop: "10px",
+        border: "none",
+        backgroundColor: "white",
+        borderRadius: "40px",
+        textAlign: "center",
+        verticalAlign: "middle",
+        zIndex: "1",
+        '&:hover': {
+            opacity: 1,
+            cursor: 'pointer',
+            backgroundColor: '#F0F0F0'
+        }
+    }
+})((props) => (
+    <Box className={props.classes.boxStyle} onClick={props.onClick}>
+        <Tooltip title="コメント入力をキャンセル">
+            <img src={foldupIcon} alt="foldupIcon" />
         </Tooltip>
     </Box>
 ));
