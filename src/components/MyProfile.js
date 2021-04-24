@@ -10,6 +10,7 @@ import {
     READ_MODE,
     EDIT_MODE
 } from '../const/Common'
+import getInitData from '../functions/getInitData'
 
 const MyProfile = () => {
 
@@ -40,6 +41,8 @@ const MyProfile = () => {
 
     const [editorDisplayStatus, setEditorDisplayStatus] = useState(false);
 
+    const initFeedbackData = getInitData();
+
     return (
         <>
             <ProfileContext.Provider
@@ -49,7 +52,8 @@ const MyProfile = () => {
                     profileMode,
                     setProfileMode,
                     editorDisplayStatus,
-                    setEditorDisplayStatus
+                    setEditorDisplayStatus,
+                    initFeedbackData
                 }}>
                 <Box component="div" display="block" className="myprofile-container">
                     <MenuBar />
