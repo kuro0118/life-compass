@@ -1,5 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Table from '@material-ui/core/Table';
@@ -258,3 +259,105 @@ export const ContentsProfileItemValue = withStyles({
         textAlign: 'left'
     }
 })(Typography)
+
+export const ContentsFeedbackTab = withStyles({
+    root: {
+        width: '100%',
+        marginTop: '20px'
+    }
+})(Box)
+
+export const FeedbackContainer = withStyles(theme => ({
+    root: {
+        // borderTop: `1px solid ${theme.palette.third.main}`
+    }
+}))(Box)
+
+export const FeedbackHeading = withStyles(theme => ({
+    root: {
+        color: theme.palette.primary.main,
+        fontSize: '20px',
+        fontWeight: '700'
+    }
+}))(Typography)
+
+export const FeedbackMeisaiGroup = withStyles(theme => ({
+    root: {
+        borderTop: `1px solid ${theme.palette.third.main}`,
+        borderBottom: `1px solid ${theme.palette.third.main}`,
+        marginBottom: '20px',
+        position: 'relative'
+    }
+}))(Box)
+
+export const FeedbackMeisai = withStyles(theme => ({
+    root: {
+        marginTop: '10px',
+        marginBottom: '10px',
+    }
+}))(Box)
+
+export const FeedbackMeisaiAvatarBlock = withStyles(theme => ({
+    root: {
+        display: 'inline-block',
+        width: '15%',
+        borderRight: `0.5px solid ${theme.palette.third.main}`,
+        verticalAlign: 'top',
+    }
+}))(Box)
+
+export const FeedbackMeisaiAvatar = withStyles(theme => ({
+    root: {
+        width: '80px',
+        height: '80px',
+        margin: '0 auto',
+    }
+}))(Avatar)
+
+export const FeedbackMeisaiCommentBlock = withStyles(theme =>({
+    root: {
+        padding: '0px 20px',
+        display: 'inline-block',
+        width: '70%',
+        verticalAlign: 'top',
+    }
+}))(Box)
+
+export const FeedbackMeisaiReceiveDate = withStyles(theme => ({
+    root: {
+        color: theme.palette.third.main,
+        fontSize: '12px',
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ],
+        marginBottom: '3px'
+    }
+}))(Typography)
+
+export const FeedbackMeisaiComment = withStyles(theme => ({
+    root: {
+        color: theme.palette.body.main,
+        fontSize: '14px',
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ],
+    }
+}))(Typography)

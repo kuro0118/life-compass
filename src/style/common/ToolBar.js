@@ -5,10 +5,17 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import ReplyIcon from '@material-ui/icons/Reply';
+import Delete from '@material-ui/icons/Delete';
+import DoneIcon from '@material-ui/icons/Done';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import SmsIcon from '@material-ui/icons/Sms';
 import editIcon from '../../images/editIcon.png'
 import sendIcon from '../../images/sendIcon.png'
 import foldupIcon from '../../images/foldupIcon.png'
 import Tooltip from '@material-ui/core/Tooltip';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import { Emoji } from 'emoji-mart';
+import { PortraitSharp } from '@material-ui/icons';
 
 export const ActionToolBar = withStyles({
     listStyle: {
@@ -131,4 +138,96 @@ export const CloseIconButton = withStyles({
             <img src={foldupIcon} alt="foldupIcon" />
         </Tooltip>
     </Box>
+));
+
+export const BookMarkButton = withStyles({
+    boxStyle: {
+        textAlign: 'right',
+        position: 'absolute',
+        top: '0px',
+        right: '10px',
+        zIndex: '10'
+    },
+    iconStyle: {
+        fontSize: '30px'
+    },
+})((props) => (
+    <Box className={props.classes.boxStyle}>
+        <CheckCircleOutlineIcon className={props.classes.iconStyle} color="primary" />
+        <BookmarkBorderIcon className={props.classes.iconStyle} color="primary" />
+    </Box>
+))
+
+export const FeedbackToolBar = withStyles(theme => ({
+    listStyle: {
+        backgroundColor: 'white',
+        textAlign: 'right',
+        padding: "2px 0px",
+        display: 'inline-block',
+        boxShadow: "4px 4px 4px rgba(0,0,0,0.4)",
+        verticalAlign: 'top',
+        borderRadius: '0.2em'
+    },
+    itemStyle: {
+        color: "white",
+        display: "inline-block",
+        width: "35px",
+        height: "25px",
+        paddingBottom: "0px",
+        paddingTop: "4px",
+        paddingRight: "15px",
+        paddingLeft: "8px",
+        textAlign: "center",
+        borderRight: "0.3px solid rgba(174, 170, 170, 0.4)",
+        backgroundColor: "white",
+        '&:hover': {
+            opacity: 0.7,
+            cursor: 'pointer',
+        },
+        verticalAlign: 'top'
+    },
+    iconStyle: {
+        fontSize: '16px',
+    },
+    emojiStyle: {
+        paddingBottom: '5px'
+    }
+}))((props) => (
+    <List className={props.classes.listStyle}>
+        <Tooltip title="返信する">
+            <ListItem className={props.classes.itemStyle} onClick={props.onReplyClick}>
+                <SmsIcon className={props.classes.iconStyle} color="primary" />
+            </ListItem>
+        </Tooltip>
+        <Tooltip title="ブックマークする">
+            <ListItem className={props.classes.itemStyle} onClick={props.onBookmarkClick}>
+                <BookmarkBorderIcon className={props.classes.iconStyle} color="primary" />
+            </ListItem>
+        </Tooltip>
+        <Tooltip title="いいね！">
+            <ListItem className={props.classes.itemStyle} onClick={props.onGoodClick}>
+                <Emoji emoji="thumbsup" className={props.classes.emojiStyle} size={16} />
+            </ListItem>
+        </Tooltip>
+        <Tooltip title="笑顔">
+            <ListItem className={props.classes.itemStyle} onClick={props.onLaughClick}>
+                <Emoji emoji="smile" className={props.classes.emojiStyle} size={16} />
+            </ListItem>
+        </Tooltip>
+        <Tooltip title="すみません！">
+            <ListItem className={props.classes.itemStyle} onClick={props.onSorryClick}>
+                <Emoji emoji="pray" className={props.classes.emojiStyle} size={16} />
+            </ListItem>
+        </Tooltip>
+        <Tooltip title="このフィードバックを終了する">
+            <ListItem className={props.classes.itemStyle} onClick={props.onFixClick}>
+                <DoneIcon className={props.classes.iconStyle} color="primary" />
+            </ListItem>
+        </Tooltip>
+        <Tooltip title="ゴミ箱に捨てる">
+            <ListItem className={props.classes.itemStyle} onClick={props.onDeleteClick}>
+                <Delete className={props.classes.iconStyle} color="primary" />
+            </ListItem>
+        </Tooltip>
+    </List>
 ));

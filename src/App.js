@@ -6,15 +6,19 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 const theme = createMuiTheme({
   palette: {
     type: 'light',
+    // ヘッダー、フッター
     primary: {
       main: '#1597BB'
     },
+    // タブ
     secondary: {
       main: '#1890ff'
     },
+    // 非活性テキスト、境界
     third: {
       main: '#aeaaaa'
     },
+    // ボディテキスト
     body: {
       main: '#194350'
     }
