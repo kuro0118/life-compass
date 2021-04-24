@@ -15,7 +15,6 @@ import foldupIcon from '../../images/foldupIcon.png'
 import Tooltip from '@material-ui/core/Tooltip';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import { Emoji } from 'emoji-mart';
-import { PortraitSharp } from '@material-ui/icons';
 
 export const ActionToolBar = withStyles({
     listStyle: {
@@ -140,7 +139,7 @@ export const CloseIconButton = withStyles({
     </Box>
 ));
 
-export const BookMarkButton = withStyles({
+export const MeisaiHeadBar = withStyles({
     boxStyle: {
         textAlign: 'right',
         position: 'absolute',
@@ -149,12 +148,20 @@ export const BookMarkButton = withStyles({
         zIndex: '10'
     },
     iconStyle: {
-        fontSize: '30px'
+        fontSize: '30px',
+        '&:hover': {
+            opacity: 0.7,
+            cursor: 'pointer',
+        }
     },
 })((props) => (
     <Box className={props.classes.boxStyle}>
-        <CheckCircleOutlineIcon className={props.classes.iconStyle} color="primary" />
-        <BookmarkBorderIcon className={props.classes.iconStyle} color="primary" />
+        <Tooltip title="このフィードバックを終了する">
+            <CheckCircleOutlineIcon className={props.classes.iconStyle} onClick={props.onFixClick} color="primary" />
+        </Tooltip>
+        <Tooltip title="ブックマークする">
+            <BookmarkBorderIcon className={props.classes.iconStyle} onClick={props.onBookmarkClick} color="primary" />
+        </Tooltip>
     </Box>
 ))
 
@@ -166,7 +173,10 @@ export const FeedbackToolBar = withStyles(theme => ({
         display: 'inline-block',
         boxShadow: "4px 4px 4px rgba(0,0,0,0.4)",
         verticalAlign: 'top',
-        borderRadius: '0.2em'
+        borderRadius: '0.2em',
+        position: 'absolute',
+        bottom: '-15px',
+        right: '0px'
     },
     itemStyle: {
         color: "white",
@@ -199,11 +209,6 @@ export const FeedbackToolBar = withStyles(theme => ({
                 <SmsIcon className={props.classes.iconStyle} color="primary" />
             </ListItem>
         </Tooltip>
-        <Tooltip title="ブックマークする">
-            <ListItem className={props.classes.itemStyle} onClick={props.onBookmarkClick}>
-                <BookmarkBorderIcon className={props.classes.iconStyle} color="primary" />
-            </ListItem>
-        </Tooltip>
         <Tooltip title="いいね！">
             <ListItem className={props.classes.itemStyle} onClick={props.onGoodClick}>
                 <Emoji emoji="thumbsup" className={props.classes.emojiStyle} size={16} />
@@ -217,11 +222,6 @@ export const FeedbackToolBar = withStyles(theme => ({
         <Tooltip title="すみません！">
             <ListItem className={props.classes.itemStyle} onClick={props.onSorryClick}>
                 <Emoji emoji="pray" className={props.classes.emojiStyle} size={16} />
-            </ListItem>
-        </Tooltip>
-        <Tooltip title="このフィードバックを終了する">
-            <ListItem className={props.classes.itemStyle} onClick={props.onFixClick}>
-                <DoneIcon className={props.classes.iconStyle} color="primary" />
             </ListItem>
         </Tooltip>
         <Tooltip title="ゴミ箱に捨てる">

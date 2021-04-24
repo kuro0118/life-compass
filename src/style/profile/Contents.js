@@ -293,7 +293,8 @@ export const FeedbackMeisaiGroup = withStyles(theme => ({
 export const FeedbackMeisai = withStyles(theme => ({
     root: {
         marginTop: '10px',
-        marginBottom: '10px',
+        marginBottom: '20px',
+        position: 'relative'
     }
 }))(Box)
 

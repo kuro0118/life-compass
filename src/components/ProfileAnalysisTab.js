@@ -126,7 +126,7 @@ const ProfileAnalysisTab = () => {
                     <ContentsTableHead>
                         <ContentsTableRow>
                             <ContentsTableHeaderCell >タイトル</ContentsTableHeaderCell >
-                            <ContentsTableHeaderCell  >本文</ContentsTableHeaderCell >
+                            <ContentsTableHeaderCell >本文</ContentsTableHeaderCell >
                         </ContentsTableRow>
                     </ContentsTableHead>
                     <ContentsTableBody >

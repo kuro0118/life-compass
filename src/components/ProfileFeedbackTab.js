@@ -13,15 +13,14 @@ import {
 } from '../style/profile/Contents';
 import {
     FeedbackToolBar,
-    BookMarkButton
+    MeisaiHeadBar
 } from '../style/common/ToolBar';
 import ProfileContext from '../contexts/ProfileContext'
 
 const ProfileFeedbackTab = () => {
 
+    const [touchMeisaiId, setTouchMeisaiId] = useState('0000');
     const { initFeedbackData } = useContext(ProfileContext);
-
-    console.log('loaded');
 
     const handleReplyClick = () => {
         console.log('返信が押されました');
@@ -51,7 +50,20 @@ const ProfileFeedbackTab = () => {
         console.log('削除が押されました');
     }
 
-    const setSplitComment = ( comment ) => {
+    const handleMouseOver = (number, branchNumber) => {
+        console.log(number);
+        const newId = number + branchNumber
+        setTouchMeisaiId(newId);
+    };
+
+    const handleMouseOut = (number, branchNumber) => {
+        const newId = number + branchNumber
+        setTouchMeisaiId(newId);
+    };
+
+    console.log(touchMeisaiId);
+
+    const setSplitComment = (comment) => {
         const texts = comment.split("\n").map((item, index) => {
             // <></> は key を設定できないので、<React.Fragment /> を使う
             return (
@@ -64,7 +76,7 @@ const ProfileFeedbackTab = () => {
     return (
         <>
             <ContentsFeedbackTab>
-                <FeedbackContainer>
+                <FeedbackContainer onMouseLeave={() => handleMouseOver('00', '00')}>
                     <FeedbackHeading
                         variant="subtitle1"
                     >
@@ -73,10 +85,14 @@ const ProfileFeedbackTab = () => {
                     {
                         Object.keys(initFeedbackData).map(rowKey => (
                             <FeedbackMeisaiGroup key={rowKey}>
-                                <BookMarkButton />
+                                <MeisaiHeadBar onBookmarkClick={handleBookmarkClick} onFixClick={handleFixClick} />
                                 {
                                     initFeedbackData[rowKey].map(el => (
-                                        <FeedbackMeisai key={el.branchNumber}>
+                                        <FeedbackMeisai
+                                            key={el.branchNumber}
+                                            onMouseEnter={() => handleMouseOver(el.number, el.branchNumber)}
+                                            onMouseLeave={() => handleMouseOut(el.number, el.branchNumber)}
+                                        >
                                             <FeedbackMeisaiAvatarBlock>
                                                 <FeedbackMeisaiAvatar src={el.avator} />
                                             </FeedbackMeisaiAvatarBlock>
@@ -86,21 +102,21 @@ const ProfileFeedbackTab = () => {
                                                     {setSplitComment(el.comment)}
                                                 </FeedbackMeisaiComment>
                                             </FeedbackMeisaiCommentBlock>
+                                            {(el.number + el.branchNumber) === touchMeisaiId ?
+                                                <FeedbackToolBar
+                                                    onReplyClick={handleReplyClick}
+                                                    onGoodClick={handleGoodClick}
+                                                    onLaughClick={handleLaughClick}
+                                                    onSorryClick={handleSorryClick}
+                                                    onDeleteClick={handleDeleteClick}
+                                                /> : ""
+                                            }
                                         </FeedbackMeisai>
                                     ))
                                 }
                             </ FeedbackMeisaiGroup>
                         ))
                     }
-                    <FeedbackToolBar
-                        onReplyClick={handleReplyClick}
-                        onBookmarkClick={handleBookmarkClick}
-                        onGoodClick={handleGoodClick}
-                        onLaughClick={handleLaughClick}
-                        onSorryClick={handleSorryClick}
-                        onFixClick={handleFixClick}
-                        onDeleteClick={handleDeleteClick}
-                    />
                 </FeedbackContainer>
             </ContentsFeedbackTab>
         </>
