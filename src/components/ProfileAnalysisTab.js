@@ -97,6 +97,7 @@ const ProfileAnalysisTab = () => {
         // chips：新しいblockMapsをcontentStateに設定している。
         let setToEditorState = EditorState.push(editorState, currentContentState.set('blockMap', newBlockMap));
         setEditorState(setToEditorState);
+        setEditorDisplayStatus(true);
     }
 
     const replyAction = (title, discription) => {

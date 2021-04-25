@@ -15,15 +15,31 @@ import {
     FeedbackToolBar,
     MeisaiHeadBar
 } from '../style/common/ToolBar';
+import { ReplyModal } from '../style/common/Modal';
 import ProfileContext from '../contexts/ProfileContext'
+import replaceNewLineCode from '../functions/replaceNewLineCode'
 
 const ProfileFeedbackTab = () => {
 
     const [touchMeisaiId, setTouchMeisaiId] = useState('0000');
+    const [replyData, setReplyData] = useState(
+        {
+            number: "",
+            branchNumber: "",
+            userName: "",
+            avator: "",
+            receiveDate: "",
+            comment: ""
+        }
+    )
+    const [replyModalDisplayed, setReplyModalDisplayed] = useState(false);
+
     const { initFeedbackData } = useContext(ProfileContext);
 
-    const handleReplyClick = () => {
+    const handleReplyClick = (meisaiData) => {
         console.log('返信が押されました');
+        setReplyData(meisaiData)
+        setReplyModalDisplayed(true)
     }
 
     const handleBookmarkClick = () => {
@@ -61,16 +77,8 @@ const ProfileFeedbackTab = () => {
         setTouchMeisaiId(newId);
     };
 
-    console.log(touchMeisaiId);
-
-    const setSplitComment = (comment) => {
-        const texts = comment.split("\n").map((item, index) => {
-            // <></> は key を設定できないので、<React.Fragment /> を使う
-            return (
-                <React.Fragment key={index}>{item}<br /></React.Fragment>
-            );
-        });
-        return (<span>{texts}</span>);
+    const modalHandleClose = () => {
+        setReplyModalDisplayed(false)
     }
 
     return (
@@ -99,12 +107,21 @@ const ProfileFeedbackTab = () => {
                                             <FeedbackMeisaiCommentBlock>
                                                 <FeedbackMeisaiReceiveDate>{el.receiveDate}</FeedbackMeisaiReceiveDate>
                                                 <FeedbackMeisaiComment>
-                                                    {setSplitComment(el.comment)}
+                                                    {replaceNewLineCode(el.comment)}
                                                 </FeedbackMeisaiComment>
                                             </FeedbackMeisaiCommentBlock>
                                             {(el.number + el.branchNumber) === touchMeisaiId ?
                                                 <FeedbackToolBar
-                                                    onReplyClick={handleReplyClick}
+                                                    onReplyClick={() => handleReplyClick(
+                                                        {
+                                                            number: el.number,
+                                                            branchNumber: el.branchNumber,
+                                                            userName: el.userName,
+                                                            avator: el.avator,
+                                                            receiveDate: el.receiveDate,
+                                                            comment: el.comment
+                                                        }
+                                                    )}
                                                     onGoodClick={handleGoodClick}
                                                     onLaughClick={handleLaughClick}
                                                     onSorryClick={handleSorryClick}
@@ -118,6 +135,11 @@ const ProfileFeedbackTab = () => {
                         ))
                     }
                 </FeedbackContainer>
+                <ReplyModal
+                    open={replyModalDisplayed}
+                    onClose={modalHandleClose}
+                    replyData={replyData}
+                />
             </ContentsFeedbackTab>
         </>
     )

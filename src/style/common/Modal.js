@@ -7,6 +7,8 @@ import Close from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
+import { Avatar } from '@material-ui/core';
+import replaceNewLineCode from '../../functions/replaceNewLineCode'
 
 // chips: propsは親コンポーネントのporps
 //        refは親コンポーネントのref (親⇒子へのアクセスをするため、参照を渡している)
@@ -144,7 +146,7 @@ const EditContainerBox = (props) => {
 const ReplyContainerBox = (props) => {
 
     const useContentsTextStyle = makeStyles((theme) => ({
-        paper : {
+        paper: {
             textAlign: 'left'
         },
         font: {
@@ -182,6 +184,209 @@ const ReplyContainerBox = (props) => {
             <TextField
                 id="outlined-multiline-static"
                 className={classes_reply_form.root}
+                label="返信"
+                fullWidth
+                multiline
+                rows={4}
+                variant="outlined"
+            />
+        </Box >
+    )
+}
+
+export const ReplyModal = forwardRef((props, ref) => {
+
+    const useModalContainerStyle = makeStyles((theme) => ({
+        paper: {
+            position: 'absolute',
+            // chips: top、left、transformの3点セットで画面中央固定
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 550,
+            backgroundColor: theme.palette.background.paper,
+            border: '2px solid #000',
+            boxShadow: theme.shadows[5],
+            padding: theme.spacing(2, 4, 3),
+            textAlign: 'center'
+        }
+    }))
+
+    const useModalContentsStyle = makeStyles((theme) => ({
+        root: {
+            paddingTop: "15px",
+            paddingBottom: "15px",
+        },
+    }))
+
+    const useModalHeaderStyle = makeStyles((theme) => ({
+        paper: {
+            borderBottom: '1.5px solid grey',
+            textAlign: 'right'
+        }
+    }))
+
+    const useSubmitButtonStyle = makeStyles((theme) => ({
+        root: {
+            padding: '5px 40px 5px 40px',
+        }
+    }))
+
+    const useCloseButtonStyle = makeStyles((theme) => ({
+        root: {
+            cursor: 'pointer'
+        }
+    }))
+
+    const classes_container = useModalContainerStyle();
+    const classes_contents = useModalContentsStyle();
+    const classes_blank_line = useModalHeaderStyle();
+    const classes_submit_button = useSubmitButtonStyle();
+    const classes_close_button = useCloseButtonStyle();
+
+    return (
+        <Modal
+            onClose={props.onClose}
+            open={props.open}
+        >
+            <Box className={classes_container.paper}>
+                <Box className={classes_blank_line.paper} >
+                    <Tooltip title="閉じる">
+                        <Close
+                            className={classes_close_button.root}
+                            onClick={props.onClose}
+                        />
+                    </Tooltip>
+                </Box>
+                <CommentReplyContainerBox classes={classes_contents} {...props}/>
+                <Button
+                    className={classes_submit_button.root}
+                    color="primary"
+                    variant="contained"
+                >
+                    送信
+                </Button>
+            </Box>
+        </Modal>
+    )
+})
+
+const CommentReplyContainerBox = (props) => {
+
+    const useAvatarStyles = makeStyles((theme) => ({
+        root: {
+            width: '110px',
+            height: '110px',
+            marginBottom: '5px'
+        }
+    }))
+
+    const useUserNameStyles = makeStyles((theme) => ({
+        root: {
+            fontSize: '14px',
+            width: '110px',
+            color: 'black',
+            fontWeight: '700',
+            fontFamily: [
+                '-apple-system',
+                'BlinkMacSystemFont',
+                '"Segoe UI"',
+                'Roboto',
+                '"Helvetica Neue"',
+                'Arial',
+                'sans-serif',
+                '"Apple Color Emoji"',
+                '"Segoe UI Emoji"',
+                '"Segoe UI Symbol"',
+            ],
+        }
+    }))
+
+    const useAvatarGroupStyles = makeStyles((theme) => ({
+        root: {
+            display: 'inline-block',
+            width: '20%',
+            verticalAlign: 'top',
+        }
+    }))
+
+    const useCommentGroupStyles = makeStyles((theme) => ({
+        root: {
+            display: 'inline-block',
+            width: '75%',
+            verticalAlign: 'top',
+            textAlign: 'left',
+            marginLeft: '10px'
+        }
+    }))
+
+    const useReceiveDateStyles = makeStyles((theme) => ({
+        root: {
+            color: theme.palette.third.main,
+            fontSize: '12px',
+            fontFamily: [
+                '-apple-system',
+                'BlinkMacSystemFont',
+                '"Segoe UI"',
+                'Roboto',
+                '"Helvetica Neue"',
+                'Arial',
+                'sans-serif',
+                '"Apple Color Emoji"',
+                '"Segoe UI Emoji"',
+                '"Segoe UI Symbol"',
+            ],
+            marginBottom: '3px'
+        }
+    }))
+
+    const useCommentStyles = makeStyles((theme) => ({
+        root: {
+            color: theme.palette.body.main,
+            fontSize: '14px',
+            fontFamily: [
+                '-apple-system',
+                'BlinkMacSystemFont',
+                '"Segoe UI"',
+                'Roboto',
+                '"Helvetica Neue"',
+                'Arial',
+                'sans-serif',
+                '"Apple Color Emoji"',
+                '"Segoe UI Emoji"',
+                '"Segoe UI Symbol"',
+            ],
+        }
+    }))
+
+    const useReplyFormStyle = makeStyles((theme) => ({
+        paper: {
+            marginTop: '15px',
+            marginBottom: '10px'
+        }
+    }))
+
+    const classes_avatar = useAvatarStyles();
+    const classes_user_name = useUserNameStyles();
+    const classes_avatar_group = useAvatarGroupStyles();
+    const classes_comment_group = useCommentGroupStyles();
+    const classes_receive_date = useReceiveDateStyles();
+    const classes_comment = useCommentStyles();
+    const classes_reply_form = useReplyFormStyle();
+
+    return (
+        <Box className={props.classes.root}>
+            <Box className={classes_avatar_group.root}>
+                <Avatar className={classes_avatar.root} src={props.replyData.avator}/>
+                <Typography className={classes_user_name.root} variant="h1">{props.replyData.userName}</Typography>
+            </Box>
+            <Box className={classes_comment_group.root}>
+                <Typography className={classes_receive_date.root} variant="body1">{props.replyData.receiveDate}</Typography>
+                <Typography className={classes_comment.root} variant="body1">{replaceNewLineCode(props.replyData.comment)}</Typography>
+            </Box>
+            <TextField
+                id="outlined-multiline-static"
+                className={classes_reply_form.paper}
                 label="返信"
                 fullWidth
                 multiline
