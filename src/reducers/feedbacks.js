@@ -2,8 +2,8 @@ import {
     CREATE_EVENT,
     DELETE_EVENT,
     REPLY_EVENT,
-    FIX_EVENT
-} from '../actions';
+    FIX_EVENT,
+} from '../actions/profile';
 
 const feedbacks = (state = [], action) => {
     switch (action.type) {
@@ -31,7 +31,7 @@ const feedbacks = (state = [], action) => {
             return state.filter(event => event.number !== action.number && event.branchNumber !== action.branchNumber)
         case REPLY_EVENT:
             console.log(state);
-            const feedbackData = {
+            feedbackData = {
                 number: action.number,
                 userName: action.userName,
                 avator: action.avator,
@@ -41,7 +41,7 @@ const feedbacks = (state = [], action) => {
 
             // numberを条件に指定の明細を取得
             const meisai = state.find(({number}) => number === action.number)
-            const branchNumber = (meisai.branchNumber + 1).slice(-3)
+            branchNumber = (meisai.branchNumber + 1).slice(-3)
 
             return [...state, { branchNumber, ...feedbackData }]
         case FIX_EVENT:

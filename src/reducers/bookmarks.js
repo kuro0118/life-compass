@@ -1,6 +1,6 @@
 import {
     ADD_BOOKMARK_EVENT,
-    DELETE_BOOKMARK_EVENT
+    DELETE_BOOKMARK_EVENT,
 } from '../actions';
 
 const bookmarks = (state = [], action) => {

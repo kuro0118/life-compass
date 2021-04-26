@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useReducer } from 'react'
 import MenuBar from './ProfileMenuBar'
 import Contents from './ProfileContents'
 import '../css/myProfile/MyProfile.css'
@@ -11,8 +11,16 @@ import {
     EDIT_MODE
 } from '../const/Common'
 import getInitData from '../functions/getInitData'
+import reducer from '../reducers';
 
 const MyProfile = () => {
+
+    const initialState = {
+        feedbacks: [],
+        bookmarks: []
+    }
+
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     const initData = convertFromRaw({
         entityMap: {},
@@ -47,6 +55,8 @@ const MyProfile = () => {
         <>
             <ProfileContext.Provider
                 value={{
+                    state,
+                    dispatch,
                     editorState,
                     setEditorState,
                     profileMode,
