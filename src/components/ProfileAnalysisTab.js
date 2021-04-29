@@ -31,6 +31,7 @@ const ProfileAnalysisTab = () => {
     );
     const [modalDisplayMode, setModalDisplayMode] = useState(false);
 
+    const { dispatch } = useContext(ProfileContext);
     const { editorDisplayStatus, setEditorDisplayStatus } = useContext(ProfileContext);
     const { editorState, setEditorState } = useContext(ProfileContext);
     const { profileMode } = useContext(ProfileContext);

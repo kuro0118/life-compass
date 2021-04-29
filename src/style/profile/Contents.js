@@ -294,7 +294,10 @@ export const FeedbackMeisai = withStyles(theme => ({
     root: {
         marginTop: '10px',
         marginBottom: '20px',
-        position: 'relative'
+        position: 'relative',
+        '&:hover': {
+            backgroundColor: theme.palette.mention_hover.main
+        }
     }
 }))(Box)
 
@@ -302,7 +305,6 @@ export const FeedbackMeisaiAvatarBlock = withStyles(theme => ({
     root: {
         display: 'inline-block',
         width: '15%',
-        borderRight: `0.5px solid ${theme.palette.third.main}`,
         verticalAlign: 'top',
     }
 }))(Box)
@@ -315,12 +317,13 @@ export const FeedbackMeisaiAvatar = withStyles(theme => ({
     }
 }))(Avatar)
 
-export const FeedbackMeisaiCommentBlock = withStyles(theme =>({
+export const FeedbackMeisaiCommentBlock = withStyles(theme => ({
     root: {
         padding: '0px 20px',
         display: 'inline-block',
         width: '70%',
         verticalAlign: 'top',
+        borderLeft: `0.5px solid ${theme.palette.third.main}`,
     }
 }))(Box)
 
@@ -362,3 +365,40 @@ export const FeedbackMeisaiComment = withStyles(theme => ({
         ],
     }
 }))(Typography)
+
+export const FeedbackMeisaiReactionBlock = withStyles(theme => ({
+    root: {
+        paddingTop: '3px',
+    }
+}))(Box)
+
+export const FeedbackMeisaiReaction = withStyles(theme => ({
+    root: {
+        fontSize: '14px',
+        padding: '2px 7px',
+        marginRight: '5px',
+        backgroundColor: 'white',
+        borderRadius: '0.4em',
+        display: 'inline-block',
+        fontWeight: '700',
+        verticalAlign: 'top',
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ],
+    }
+}))(Typography)
+
+export const FeedbackMeisaiReactionBlankBlock = withStyles(theme => ({
+    root: {
+        height: '27.5px'
+    }
+}))(Box)

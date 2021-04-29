@@ -2,28 +2,10 @@ import React from 'react'
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import MyProfile from '../src/components/MyProfile';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import loadTheme from './functions/loadTheme';
 
-const theme = createMuiTheme({
-  palette: {
-    type: 'light',
-    // ヘッダー、フッター
-    primary: {
-      main: '#1597BB'
-    },
-    // タブ
-    secondary: {
-      main: '#1890ff'
-    },
-    // 非活性テキスト、境界
-    third: {
-      main: '#aeaaaa'
-    },
-    // ボディテキスト
-    body: {
-      main: '#194350'
-    }
-  },
-});
+// 独自テーマのロード
+const theme = loadTheme();
 
 const App = () => {
 

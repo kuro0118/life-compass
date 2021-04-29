@@ -1,7 +1,7 @@
 import {
     ADD_BOOKMARK_EVENT,
     DELETE_BOOKMARK_EVENT,
-} from '../actions';
+} from '../actions/profile';
 
 const bookmarks = (state = [], action) => {
     switch (action.type) {

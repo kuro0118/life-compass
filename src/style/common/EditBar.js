@@ -68,7 +68,7 @@ export const EditBar = forwardRef((props, ref) => {
                     handleBeforeInput={handleBeforeInput}
                     onEditorStateChange={setEditorState}
                 />
-                <SendIconButton />
+                <SendIconButton onClick={props.handleSendClick}/>
             </Box>
         </Box>
     )

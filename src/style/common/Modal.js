@@ -9,6 +9,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import { Avatar } from '@material-ui/core';
 import replaceNewLineCode from '../../functions/replaceNewLineCode'
+import Link from '@material-ui/core/Link';
 
 // chips: propsは親コンポーネントのporps
 //        refは親コンポーネントのref (親⇒子へのアクセスをするため、参照を渡している)
@@ -258,11 +259,12 @@ export const ReplyModal = forwardRef((props, ref) => {
                         />
                     </Tooltip>
                 </Box>
-                <CommentReplyContainerBox classes={classes_contents} {...props}/>
+                <CommentReplyContainerBox classes={classes_contents} {...props} />
                 <Button
                     className={classes_submit_button.root}
                     color="primary"
                     variant="contained"
+                    onClick={props.onSendClick}
                 >
                     送信
                 </Button>
@@ -377,7 +379,7 @@ const CommentReplyContainerBox = (props) => {
     return (
         <Box className={props.classes.root}>
             <Box className={classes_avatar_group.root}>
-                <Avatar className={classes_avatar.root} src={props.replyData.avator}/>
+                <Avatar className={classes_avatar.root} src={props.replyData.avator} />
                 <Typography className={classes_user_name.root} variant="h1">{props.replyData.userName}</Typography>
             </Box>
             <Box className={classes_comment_group.root}>
@@ -392,7 +394,126 @@ const CommentReplyContainerBox = (props) => {
                 multiline
                 rows={4}
                 variant="outlined"
+                onChange={props.onChange}
             />
         </Box >
     )
 }
+
+export const DeleteConfirmModal = forwardRef((props, ref) => {
+
+    const useModalContainerStyle = makeStyles((theme) => ({
+        root: {
+            position: 'absolute',
+            // chips: top、left、transformの3点セットで画面中央固定
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '320px',
+            backgroundColor: theme.palette.background.paper,
+            border: '2px solid #000',
+            boxShadow: theme.shadows[5],
+            padding: theme.spacing(2, 4, 3),
+            textAlign: 'center'
+        }
+    }))
+
+    const useModalHeaderStyle = makeStyles((theme) => ({
+        root: {
+            fontFamily: [
+                '-apple-system',
+                'BlinkMacSystemFont',
+                '"Segoe UI"',
+                'Roboto',
+                '"Helvetica Neue"',
+                'Arial',
+                'sans-serif',
+                '"Apple Color Emoji"',
+                '"Segoe UI Emoji"',
+                '"Segoe UI Symbol"',
+            ],
+            color: theme.palette.body.main,
+            fontSize: '20px',
+            width: '100%',
+            fontWeight: '700',
+            textAlign: 'left',
+            display: 'block',
+            marginBottom: '40px'
+        }
+    }))
+
+    const useModalMessageStyle = makeStyles((theme) => ({
+        root: {
+            fontFamily: [
+                '-apple-system',
+                'BlinkMacSystemFont',
+                '"Segoe UI"',
+                'Roboto',
+                '"Helvetica Neue"',
+                'Arial',
+                'sans-serif',
+                '"Apple Color Emoji"',
+                '"Segoe UI Emoji"',
+                '"Segoe UI Symbol"',
+            ],
+            color: theme.palette.body.main,
+            width: '100%',
+            display: 'block',
+            marginBottom: '40px',
+            textAlign: 'left'
+        }
+    }))
+
+    const useModalFooterStyle = makeStyles((theme) => ({
+        root: {
+            textAlign: 'right',
+        }
+    }))
+
+    const useModalLinkButton = makeStyles((theme) => ({
+        root: {
+            color: theme.palette.secondary.main,
+            marginLeft: '20px',
+            '&:hover': {
+                opacity: 0.7,
+            }
+        }
+    }))
+
+    const classes_container = useModalContainerStyle();
+    const classes_header = useModalHeaderStyle();
+    const classes_message = useModalMessageStyle();
+    const classes_footer = useModalFooterStyle();
+    const classes_link_btn = useModalLinkButton();
+
+    return (
+        <Modal
+            onClose={props.onClose}
+            open={props.open}
+        >
+            <Box className={classes_container.root}>
+                <Typography className={classes_header.root} varant="h1">メッセージの削除確認</Typography>
+                <Box className={classes_message.root} variant="body1">
+                    メッセージを削除しますか？<br/>
+                    (※削除後は復元することは出来ません。)
+                </Box>
+                <Box className={classes_footer.root}>
+                    <Link
+                        component="button"
+                        variant="body2"
+                        underline='none'
+                        className={classes_link_btn.root}
+                        onClick={props.onCancelClick}
+                    >キャンセル</Link>
+                    <Link
+                        component="button"
+                        variant="body2"
+                        underline='none'
+                        className={classes_link_btn.root}
+                        onClick={props.onDeleteClick}
+                    >削除する</Link>
+                </Box>
+            </Box>
+        </Modal>
+    )
+})

@@ -175,7 +175,7 @@ export const FeedbackToolBar = withStyles(theme => ({
         verticalAlign: 'top',
         borderRadius: '0.2em',
         position: 'absolute',
-        bottom: '-15px',
+        bottom: '-5px',
         right: '0px'
     },
     itemStyle: {
@@ -204,11 +204,13 @@ export const FeedbackToolBar = withStyles(theme => ({
     }
 }))((props) => (
     <List className={props.classes.listStyle}>
-        <Tooltip title="返信する">
-            <ListItem className={props.classes.itemStyle} onClick={props.onReplyClick}>
-                <SmsIcon className={props.classes.iconStyle} color="primary" />
-            </ListItem>
-        </Tooltip>
+        {props.enabledReply === true ?
+            <Tooltip title="返信する">
+                <ListItem className={props.classes.itemStyle} onClick={props.onReplyClick}>
+                    <SmsIcon className={props.classes.iconStyle} color="primary" />
+                </ListItem>
+            </Tooltip> : ''
+        }
         <Tooltip title="いいね！">
             <ListItem className={props.classes.itemStyle} onClick={props.onGoodClick}>
                 <Emoji emoji="thumbsup" className={props.classes.emojiStyle} size={16} />

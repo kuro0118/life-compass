@@ -9,14 +9,14 @@ import { EditorState, convertFromRaw } from 'draft-js';
 import {
     READ_MODE,
     EDIT_MODE
-} from '../const/Common'
+} from '../const/CommonConst'
 import getInitData from '../functions/getInitData'
 import reducer from '../reducers';
 
 const MyProfile = () => {
 
     const initialState = {
-        feedbacks: [],
+        feedbacks: getInitData(),
         bookmarks: []
     }
 
@@ -49,8 +49,6 @@ const MyProfile = () => {
 
     const [editorDisplayStatus, setEditorDisplayStatus] = useState(false);
 
-    const initFeedbackData = getInitData();
-
     return (
         <>
             <ProfileContext.Provider
@@ -62,8 +60,7 @@ const MyProfile = () => {
                     profileMode,
                     setProfileMode,
                     editorDisplayStatus,
-                    setEditorDisplayStatus,
-                    initFeedbackData
+                    setEditorDisplayStatus
                 }}>
                 <Box component="div" display="block" className="myprofile-container">
                     <MenuBar />
