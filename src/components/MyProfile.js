@@ -4,6 +4,7 @@ import Contents from './ProfileContents'
 import '../css/myProfile/MyProfile.css'
 import Box from '@material-ui/core/Box'
 import ProfileFooter from './ProfileFooter'
+import ProfileHidden from './ProfileHidden'
 import ProfileContext from '../contexts/ProfileContext'
 import { EditorState, convertFromRaw } from 'draft-js';
 import {
@@ -48,6 +49,9 @@ const MyProfile = () => {
     );
 
     const [editorDisplayStatus, setEditorDisplayStatus] = useState(false);
+    const [sendNoticeDisplayed, setSendNoticeDisplayed] = useState(false);
+    const [cropModalDisplayed, setCropModalDisplayed] = useState(false);
+    const [uploadImageURL, setUploadImageURL] = useState("");
 
     return (
         <>
@@ -60,12 +64,19 @@ const MyProfile = () => {
                     profileMode,
                     setProfileMode,
                     editorDisplayStatus,
-                    setEditorDisplayStatus
+                    setEditorDisplayStatus,
+                    sendNoticeDisplayed,
+                    setSendNoticeDisplayed,
+                    cropModalDisplayed,
+                    setCropModalDisplayed,
+                    uploadImageURL,
+                    setUploadImageURL
                 }}>
                 <Box component="div" display="block" className="myprofile-container">
                     <MenuBar />
                     <Contents />
                     <ProfileFooter />
+                    <ProfileHidden />
                 </Box>
             </ProfileContext.Provider>
         </>

@@ -10,6 +10,7 @@ import {
 import _ from 'lodash';
 import updateStateForReaction from '../functions/updateState';
 import findMentions from '../functions/findMentions';
+import createState from '../functions/createState';
 
 const feedbacks = (state = [], action) => {
     switch (action.type) {
@@ -17,17 +18,16 @@ const feedbacks = (state = [], action) => {
             console.log(state)
 
             var targetNumber = action.number;
-            var mentions = [{
-                number: '001',
-                branchNumber: '001',
-                userName: action.userName,
-                avator: action.avator,
-                receiveDate: action.receiveDate,
-                comment: action.comment,
-                reactionLaugh: '',
-                reactionSorry: '',
-                reactionGood: ''
-            }]
+
+            var mentions = [createState(
+                '001',
+                '001',
+                action.userId,
+                action.userName,
+                action.avator,
+                action.receiveDate,
+                action.comment
+            )]
 
             if (state.length) {
                 // numberの最大値を取得し、インクリメントする
@@ -55,22 +55,21 @@ const feedbacks = (state = [], action) => {
 
             var targetNumber = action.number;
 
-            var mentions = [{
-                number: targetNumber,
-                branchNumber: '',
-                userName: action.userName,
-                avator: action.avator,
-                receiveDate: action.receiveDate,
-                comment: action.comment,
-                reactionLaugh: '',
-                reactionSorry: '',
-                reactionGood: ''
-            }]
+            var mentions = [createState(
+                targetNumber,
+                '',
+                action.userId,
+                action.userName,
+                action.avator,
+                action.receiveDate,
+                action.comment
+            )]
 
             // numberを条件に指定の明細を取得
             var target_mentions = state.find(({ number }) => number === targetNumber).mention
             // 明細の中から枝番が最大のものを取り出す
-            var maxBranchNumber = Math.max(target_mentions.map((p) => p.branchNumber))
+            // chips:target_mentionsはスプレッド演算子でないと、最大値が上手く取れない？
+            var maxBranchNumber = Math.max(...target_mentions.map((p) => p.branchNumber))
             mentions[0].branchNumber = ('000' + (maxBranchNumber + 1)).slice(-3)
 
             target_mentions = [...target_mentions, mentions[0]]

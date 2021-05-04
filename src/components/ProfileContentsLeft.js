@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
+import ProfileContext from '../contexts/ProfileContext'
 import Box from '@material-ui/core/Box';
 import {
     ContentsAvatar,
@@ -8,18 +9,72 @@ import {
     ContentsBadIcon,
     ContentsReviewCount,
     ContentsProfileItemLabel,
-    ContentsProfileItemValue
+    ContentsProfileItemValue,
+    ContentsAvatorOverlay,
+    ContentsUploadImageIcon,
+    ContentsAvatorOverlayText
 } from '../style/profile/Contents';
 import '../css/myProfile/ContentsLeft.css'
-import kokoro from '../images/kokoro.png'
+import { ACCEPT_IMAGE_EXTENTION, PATH_AVATOR_ME } from '../const/CommonConst'
+import getRelativePath from '../functions/getRelativePath';
+import { useFileUpload } from "use-file-upload";
 
 const ProfileContentsLeft = () => {
+
+    const myAvator = getRelativePath(__dirname, PATH_AVATOR_ME);
+
+    const [isOverAvator, setIsOverAvator] = useState(false);
+
+    const { setCropModalDisplayed } = useContext(ProfileContext);
+    const { setUploadImageURL } = useContext(ProfileContext);
+
+    const [files, selectFiles] = useFileUpload();
+
+    const handleOverAvator = () => {
+        setIsOverAvator(true)
+    }
+
+    const handleOutAvator = () => {
+        setIsOverAvator(false)
+    }
+
+    const handleAvatorClick = () => {
+        selectFiles({ accept: ACCEPT_IMAGE_EXTENTION }, ({ name, size, source, file }) => {
+            console.log("Files Selected", { name, size, source, file });
+            setUploadImageURL(source)
+            setCropModalDisplayed(true);
+        })
+    }
+
     return (
         <>
             <Box className="contents-left-container">
                 <Box className="contents-left-top-container">
                     <Box className="contents-user-icon-group">
-                        <ContentsAvatar src={kokoro}></ContentsAvatar>
+                        <ContentsUploadImageIcon
+                            onMouseEnter={handleOverAvator}
+                            onMouseLeave={handleOutAvator}
+                            onClick={handleAvatorClick}
+                        />
+                        <ContentsAvatar src={myAvator}
+                            onMouseEnter={handleOverAvator}
+                        />
+                        {isOverAvator === true ?
+                            <ContentsAvatorOverlay
+                                onMouseEnter={handleOverAvator}
+                                onMouseLeave={handleOutAvator}
+                                onClick={handleAvatorClick}
+                            >
+                                <ContentsAvatorOverlayText
+                                    variant='body1'
+                                    component='p'
+                                >
+                                    アバターを変更
+
+                                </ContentsAvatorOverlayText>
+                            </ContentsAvatorOverlay>
+                            : ""
+                        }
                     </Box>
                     <Box className="contents-user-name-group">
                         <ContentsUserName variant="h1">ばるす</ContentsUserName>

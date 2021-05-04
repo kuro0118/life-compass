@@ -37,36 +37,19 @@ import {
     EMOJI_SORRY,
     ENABLED_REPLY
 } from '../const/CommonConst'
+import initState from '../functions/initState';
+import createState from '../functions/createState';
+import createStateByMention from '../functions/createStateByMention';
 
 const ProfileFeedbackTab = () => {
     const { state, dispatch } = useContext(ProfileContext);
     const initFeedbackData = state.feedbacks;
     const [touchMeisaiId, setTouchMeisaiId] = useState('0000');
     const [replyData, setReplyData] = useState(
-        {
-            number: "",
-            branchNumber: "",
-            userName: "",
-            avator: "",
-            receiveDate: "",
-            comment: "",
-            reactionLaugh: '',
-            reactionSorry: '',
-            reactionGood: ''
-        }
+        initState()
     )
     const [confirmData, setConfirmData] = useState(
-        {
-            number: "",
-            branchNumber: "",
-            userName: "",
-            avator: "",
-            receiveDate: "",
-            comment: "",
-            reactionLaugh: '',
-            reactionSorry: '',
-            reactionGood: ''
-        }
+        initState()
     )
     const [replyModalDisplayed, setReplyModalDisplayed] = useState(false);
     const [deleteConfirmDisplayed, setDeleteConfirmDisplayed] = useState(false);
@@ -85,33 +68,33 @@ const ProfileFeedbackTab = () => {
         console.log('ブックマークが押されました');
     }
 
-    const handleGoodClick = (number, branchNumber, reactionCount) => {
+    const handleGoodClick = (mention) => {
         console.log('グッドボタンが押されました');
         dispatch({
             type: REACTION_GOOD_EVENT,
-            number: number,
-            branchNumber: branchNumber,
-            reactionGood: reactionCount + 1
+            number: mention.number,
+            branchNumber: mention.branchNumber,
+            reactionGood: mention.reactionGood + 1
         })
     }
 
-    const handleLaughClick = (number, branchNumber, reactionCount) => {
+    const handleLaughClick = (mention) => {
         console.log('笑顔が押されました');
         dispatch({
             type: REACTION_LAUGH_EVENT,
-            number: number,
-            branchNumber: branchNumber,
-            reactionLaugh: reactionCount + 1
+            number: mention.number,
+            branchNumber: mention.branchNumber,
+            reactionLaugh: mention.reactionLaugh + 1
         })
     }
 
-    const handleSorryClick = (number, branchNumber, reactionCount) => {
+    const handleSorryClick = (mention) => {
         console.log('すみませんが押されました');
         dispatch({
             type: REACTION_SORRY_EVENT,
-            number: number,
-            branchNumber: branchNumber,
-            reactionSorry: reactionCount + 1
+            number: mention.number,
+            branchNumber: mention.branchNumber,
+            reactionSorry: mention.reactionSorry + 1
         })
     }
 
@@ -125,18 +108,23 @@ const ProfileFeedbackTab = () => {
         setDeleteConfirmDisplayed(true)
     }
 
-    const handleMouseOver = (number, branchNumber, index, maxCount) => {
+    const handleMouseOver = (mention, index, maxCount) => {
+
         // タッチしたメンションIDを設定
-        const newId = number + branchNumber
+        const newId = mention.number + mention.branchNumber
         setTouchMeisaiId(newId)
 
         // 返信アイコンの表示ステータスを判定
         let touchMeisaiIndex = index + 1
         touchMeisaiIndex === maxCount ? setEnabledReply(true) : setEnabledReply(false)
+
+        // 削除アイコンの表示ステータスを判定
+        mention.userName === getInitCurrentUser().userName &&
+            touchMeisaiIndex === maxCount ? setEnabledDelete(true) : setEnabledDelete(false)
     };
 
-    const handleMouseOut = (number, branchNumber) => {
-        const newId = number + branchNumber
+    const handleMouseOut = (mention) => {
+        const newId = mention.number + mention.branchNumber
         setTouchMeisaiId(newId);
         setEnabledReply(false)
     };
@@ -144,28 +132,12 @@ const ProfileFeedbackTab = () => {
     const modalHandleClose = () => {
         setReplyModalDisplayed(false)
         setDeleteConfirmDisplayed(false)
-        setReplyData({
-            number: "",
-            branchNumber: "",
-            userName: "",
-            avator: "",
-            receiveDate: "",
-            comment: "",
-            reactionLaugh: '',
-            reactionSorry: '',
-            reactionGood: ''
-        })
-        setConfirmData({
-            number: "",
-            branchNumber: "",
-            userName: "",
-            avator: "",
-            receiveDate: "",
-            comment: "",
-            reactionLaugh: '',
-            reactionSorry: '',
-            reactionGood: ''
-        })
+        setReplyData(
+            initState()
+        )
+        setConfirmData(
+            initState()
+        )
     }
 
     const modalHandleChange = (event) => {
@@ -173,15 +145,20 @@ const ProfileFeedbackTab = () => {
     }
 
     const modalHandleSend = () => {
-        dispatch({
-            type: REPLY_EVENT,
-            number: replyData.number,
-            branchNumber: "",
-            userName: getInitCurrentUser().userName,
-            avator: getInitCurrentUser().avatorURL,
-            receiveDate: getToday(),
-            comment: modalInputData
-        })
+
+        dispatch(
+            {
+                ...createState(
+                    replyData.number,
+                    "",
+                    getInitCurrentUser().userID,
+                    getInitCurrentUser().userName,
+                    getInitCurrentUser().avatorURL,
+                    getToday(),
+                    modalInputData,
+                ), type: REPLY_EVENT
+            }
+        )
         setReplyModalDisplayed(false)
     }
 
@@ -211,8 +188,8 @@ const ProfileFeedbackTab = () => {
                                     mentions.mention.map((mention, index) => (
                                         <FeedbackMeisai
                                             key={index}
-                                            onMouseEnter={() => handleMouseOver(mention.number, mention.branchNumber, index, mentions.mention.length)}
-                                            onMouseLeave={() => handleMouseOut(mention.number, mention.branchNumber, index, mentions.mention.length)}
+                                            onMouseEnter={() => handleMouseOver(mention, index, mentions.mention.length)}
+                                            onMouseLeave={() => handleMouseOut(mention)}
                                         >
                                             <FeedbackMeisaiAvatarBlock>
                                                 <FeedbackMeisaiAvatar src={mention.avator} />
@@ -222,7 +199,7 @@ const ProfileFeedbackTab = () => {
                                                 <FeedbackMeisaiComment>
                                                     {replaceNewLineCode(mention.comment)}
                                                 </FeedbackMeisaiComment>
-                                                {mention.reactionGood == 0 && mention.reactionLaugh == 0 && mention.reactionSorry == 0 ?
+                                                {mention.reactionGood === 0 && mention.reactionLaugh === 0 && mention.reactionSorry === 0 ?
                                                     <FeedbackMeisaiReactionBlankBlock />
                                                     : <FeedbackMeisaiReactionBlock>
                                                         {mention.reactionGood !== 0 ?
@@ -241,29 +218,16 @@ const ProfileFeedbackTab = () => {
                                             {(mention.number + mention.branchNumber) === touchMeisaiId ?
                                                 <FeedbackToolBar
                                                     onReplyClick={() => handleReplyClick(
-                                                        {
-                                                            number: mention.number,
-                                                            branchNumber: mention.branchNumber,
-                                                            userName: mention.userName,
-                                                            avator: mention.avator,
-                                                            receiveDate: mention.receiveDate,
-                                                            comment: mention.comment
-                                                        }
+                                                        createStateByMention(mention)
                                                     )}
-                                                    onGoodClick={() => handleGoodClick(mention.number, mention.branchNumber, mention.reactionGood)}
-                                                    onLaughClick={() => handleLaughClick(mention.number, mention.branchNumber, mention.reactionLaugh)}
-                                                    onSorryClick={() => handleSorryClick(mention.number, mention.branchNumber, mention.reactionSorry)}
+                                                    onGoodClick={() => handleGoodClick(mention)}
+                                                    onLaughClick={() => handleLaughClick(mention)}
+                                                    onSorryClick={() => handleSorryClick(mention)}
                                                     onDeleteClick={() => handleDeleteClick(
-                                                        {
-                                                            number: mention.number,
-                                                            branchNumber: mention.branchNumber,
-                                                            userName: mention.userName,
-                                                            avator: mention.avator,
-                                                            receiveDate: mention.receiveDate,
-                                                            comment: mention.comment
-                                                        }
+                                                        createStateByMention(mention)
                                                     )}
                                                     enabledReply={enabledReply}
+                                                    enabledDelete={enabledDelete}
                                                 /> : ""
                                             }
                                         </FeedbackMeisai>

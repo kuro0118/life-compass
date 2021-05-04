@@ -7,9 +7,10 @@ import Close from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import { Avatar } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
 import replaceNewLineCode from '../../functions/replaceNewLineCode'
 import Link from '@material-ui/core/Link';
+import ImageSendFeedback from '../../images/sendFeedback.png'
 
 // chips: propsは親コンポーネントのporps
 //        refは親コンポーネントのref (親⇒子へのアクセスをするため、参照を渡している)
@@ -494,7 +495,7 @@ export const DeleteConfirmModal = forwardRef((props, ref) => {
             <Box className={classes_container.root}>
                 <Typography className={classes_header.root} varant="h1">メッセージの削除確認</Typography>
                 <Box className={classes_message.root} variant="body1">
-                    メッセージを削除しますか？<br/>
+                    メッセージを削除しますか？<br />
                     (※削除後は復元することは出来ません。)
                 </Box>
                 <Box className={classes_footer.root}>
@@ -517,3 +518,101 @@ export const DeleteConfirmModal = forwardRef((props, ref) => {
         </Modal>
     )
 })
+
+export const SendNoticeModal = (props) => {
+
+    const useModalStyle = makeStyles(theme => ({
+        root: {
+            border: 'none',
+            outline: 'none'
+        }
+    }))
+
+    const useModalContainerStyle = makeStyles((theme) => ({
+        root: {
+            position: 'absolute',
+            // chips: top、left、transformの3点セットで画面中央固定
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            boxShadow: theme.shadows[5],
+            width: '320px',
+        }
+    }))
+
+    const useModalImageStyle = makeStyles((theme) => ({
+        root: {
+            width: '100%'
+        }
+    }))
+
+    const useModalContentsStyle = makeStyles((theme) => ({
+        root: {
+            backgroundColor: theme.palette.background.paper,
+            textAlign: 'center',
+            padding: '0px 20px'
+        }
+    }))
+
+    const useModalMessageStyle = makeStyles((theme) => ({
+        root: {
+            fontFamily: [
+                '-apple-system',
+                'BlinkMacSystemFont',
+                '"Segoe UI"',
+                'Roboto',
+                '"Helvetica Neue"',
+                'Arial',
+                'sans-serif',
+                '"Apple Color Emoji"',
+                '"Segoe UI Emoji"',
+                '"Segoe UI Symbol"',
+            ],
+            color: theme.palette.body.main,
+            textAlign: 'left',
+            marginBottom: '20px',
+        }
+    }))
+
+    const useModalLinkButton = makeStyles((theme) => ({
+        root: {
+            color: theme.palette.secondary.main,
+            marginBottom: '20px',
+            '&:hover': {
+                opacity: 0.7,
+            }
+        }
+    }))
+
+    const classes_modal = useModalStyle()
+    const classes_container = useModalContainerStyle();
+    const classes_contents = useModalContentsStyle();
+    const classes_image = useModalImageStyle();
+    const classes_message = useModalMessageStyle();
+    const classes_link_btn = useModalLinkButton();
+    const imageURL = props.getImageURL();
+
+    return (
+        <Modal
+            onClose={props.onClose}
+            open={props.open}
+            className={classes_modal.root}
+        >
+            <Box className={classes_container.root}>
+                <Box className={classes_contents.root}>
+                    <img src={imageURL} className={classes_image.root} />
+                    <Typography className={classes_message.root} variant="body1">
+                        {props.profileUser.userName}さんにフィードバックを送信しました！<br />
+                    </Typography>
+                    <Link
+                        component="button"
+                        variant="body2"
+                        underline='none'
+                        className={classes_link_btn.root}
+                        onClick={props.onClick}
+                    >OK</Link>
+                </Box>
+            </Box>
+        </Modal>
+    )
+}

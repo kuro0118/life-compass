@@ -2,8 +2,10 @@ import React, { useContext } from 'react'
 import { EditBar } from '../style/common/EditBar';
 import '../css/myProfile/Header.css'
 import ProfileContext from '../contexts/ProfileContext'
-import kokoro from '../images/kokoro.png'
 import { CREATE_EVENT } from '../actions/profile';
+import createState from '../functions/createState';
+import getToday from '../functions/getToday';
+import getInitCurrentUser from '../functions/getInitCurrentUser';
 
 const ProfileFooter = () => {
 
@@ -19,7 +21,9 @@ const ProfileFooter = () => {
 const DisplayedEditor = () => {
 
     const { dispatch } = useContext(ProfileContext);
-    const {editorState, setEditorState} = useContext(ProfileContext);
+    const { editorState, setEditorState } = useContext(ProfileContext);
+    const { setEditorDisplayStatus } = useContext(ProfileContext);
+    const { setSendNoticeDisplayed } = useContext(ProfileContext);
 
     const handleSendClick = (editorState) => {
 
@@ -33,20 +37,27 @@ const DisplayedEditor = () => {
         // chips: getPlainText()で入力値をそのまま取得可能
         const comment = editorState.getCurrentContent().getPlainText();
 
-        dispatch({
-            type: CREATE_EVENT,
-            number: '',
-            branchNumber: '',
-            userName: 'てすと',
-            avator: kokoro,
-            receiveDate: '2021-4-26 22:10:10',
-            comment: comment
-        })
+        dispatch(
+            {
+                ...createState(
+                    '',
+                    '',
+                    getInitCurrentUser().userID,
+                    getInitCurrentUser().userName,
+                    getInitCurrentUser().avatorURL,
+                    getToday(),
+                    comment,
+                ), type: CREATE_EVENT
+            }
+        )
+
+        setEditorDisplayStatus(false)
+        setSendNoticeDisplayed(true)
     }
 
     return (
         <>
-            <EditBar handleSendClick={() => handleSendClick(editorState)}/>
+            <EditBar handleSendClick={() => handleSendClick(editorState)} />
         </>
     )
 }

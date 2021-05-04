@@ -226,10 +226,12 @@ export const FeedbackToolBar = withStyles(theme => ({
                 <Emoji emoji="pray" className={props.classes.emojiStyle} size={16} />
             </ListItem>
         </Tooltip>
-        <Tooltip title="ゴミ箱に捨てる">
-            <ListItem className={props.classes.itemStyle} onClick={props.onDeleteClick}>
-                <Delete className={props.classes.iconStyle} color="primary" />
-            </ListItem>
-        </Tooltip>
+        {props.enabledDelete === true ?
+            <Tooltip title="ゴミ箱に捨てる">
+                <ListItem className={props.classes.itemStyle} onClick={props.onDeleteClick}>
+                    <Delete className={props.classes.iconStyle} color="primary" />
+                </ListItem>
+            </Tooltip> : ''
+        }
     </List>
 ));

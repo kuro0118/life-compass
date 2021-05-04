@@ -1,48 +1,61 @@
 .contents-left-container {
-    display: inline-block;
-    vertical-align: top;
-    width: 300px;
-    margin-top: 68px;
-    margin-bottom: 50px;
+  display: inline-block;
+  vertical-align: top;
+  width: 300px;
+  margin-top: 68px;
+  margin-bottom: 50px;
 }
 
 .contents-left-top-container {
-    border: 1.5px solid #aeaaaa;
-    background-color: white;
+  border: 1.5px solid #aeaaaa;
+  background-color: white;
 }
 
 .contents-review-group {
-    margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .contents-review-icon-group {
-    display: inline-block;
-    width: 40%;
-    padding-top: 5px;
-    padding-bottom: 5px;
+  display: inline-block;
+  width: 40%;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .goodIcon {
-    border-top: 1px solid #aeaaaa;
-    border-right: 1px solid #aeaaaa;
-    border-bottom: 1px solid #aeaaaa;
+  border-top: 1px solid #aeaaaa;
+  border-right: 1px solid #aeaaaa;
+  border-bottom: 1px solid #aeaaaa;
 }
 
 .badIcon {
-    border-top: 1px solid #aeaaaa;
-    border-bottom: 1px solid #aeaaaa;
+  border-top: 1px solid #aeaaaa;
+  border-bottom: 1px solid #aeaaaa;
 }
 
 .contents-left-bottom-container {
-    border: 1.5px solid #aeaaaa;
-    background-color: white;
-    margin-top: 20px;
-    padding: 20px 0px;
+  border: 1.5px solid #aeaaaa;
+  background-color: white;
+  margin-top: 20px;
+  padding: 20px 0px;
 }
 
 .contents-base-profile-group {
-    line-height: 2.5em;
+  line-height: 2.5em;
 }
+
+.contents-user-icon-group {
+  position: relative;
+  padding-bottom: 170px;
+}
+
+/* .contents-user-icon-group .overlay-avator {
+  position: "absolute";
+  top: 0;
+  left: 0;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+} */

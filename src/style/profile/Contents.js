@@ -12,6 +12,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
+import ImageSearchIcon from '@material-ui/icons/ImageSearch';
+import { IconButton } from '@material-ui/core';
 
 // chips: rootは外観
 // chips: indicatorはタブを移動した時に動く下線部
@@ -127,14 +129,78 @@ export const ContentsTableBodyDescCell = withStyles({
     }
 })(TableCell)
 
-export const ContentsAvatar = withStyles({
+// export const ContentsIconButton = withStyles({
+//     root: {
+//         margin: '0 auto',
+//     },
+// })(IconButton)
+
+export const ContentsAvatar = withStyles(theme => ({
     root: {
         width: '130px',
         height: '130px',
-        margin: '0 auto',
-        marginTop: '20px'
+        position: 'absolute',
+        top: 40,
+        left: 85,
+        backgroundColor: '#fcf3e4',
+    },
+}))(Avatar)
+
+export const ContentsAvatorOverlay = withStyles(theme => ({
+    root: {
+        position: "absolute",
+        top: 40,
+        left: 85,
+        width: '130px',
+        height: '130px',
+        borderRadius: '65px',
+        cursor: 'pointer',
+        objectFit: 'cover',
+        textAlign: 'center',
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        zIndex: 1
     }
-})(Avatar)
+}))(Box)
+
+export const ContentsAvatorOverlayText = withStyles(theme => ({
+    root: {
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ],
+        fontSize: '13.5px',
+        color: theme.palette.white.main,
+        fontWeight: '700',
+        width: '100%',
+        position: "absolute",
+        top: 60,
+        right: 0,
+    }
+}))(Typography)
+
+export const ContentsUploadImageIcon = withStyles(theme => ({
+    root: {
+        color: theme.palette.white.main,
+        backgroundColor: theme.palette.primary.main,
+        borderRadius: '0.7em',
+        padding: '5px',
+        boder: '0.2px solid white',
+        fontSize: '22px',
+        position: 'absolute',
+        top: 45,
+        right: 85,
+        cursor: 'pointer',
+        zIndex: 2,
+    }
+}))(ImageSearchIcon)
 
 export const ContentsUserName = withStyles({
     root: {

@@ -1,4 +1,4 @@
-import joon from '../images/joon.png'
+import joon from '../images/kokoro.png'
 
 const getInitCurrentUser = () => {
     return {
