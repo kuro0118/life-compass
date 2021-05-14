@@ -43,6 +43,14 @@ const loadTheme = () => {
             // 画像編集モーダルの背景色
             crop_image: {
                 main: '#66B3C2'
+            },
+            // プロフィール画面の背景色
+            profile: {
+                main: '#DBF6E9'
+            },
+            // ログイン画面の背景色
+            login: {
+                main: '#D1F0FF'
             }
         },
     });

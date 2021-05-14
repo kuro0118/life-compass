@@ -5,26 +5,64 @@ import Modal from '@material-ui/core/Modal';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Slider from '@material-ui/core/Slider'
-import getInitCurrentUser from '../functions/getInitCurrentUser'
 import { makeStyles, Typography } from '@material-ui/core'
-import { useTheme } from '@material-ui/core/styles'
+import uploadToStorage from '../functions/uploadToStorage';
+import getCroppedImage from '../functions/getCroppedImage';
 
 const CropImage = forwardRef((props, ref) => {
 
-    const { uploadImageURL } = useContext(ProfileContext);
+    const { cropModalDisplayed, setCropModalDisplayed } = useContext(ProfileContext);
+    const { uploadImageURL, setUploadImageURL } = useContext(ProfileContext);
+    const { currentUser} = useContext(ProfileContext);
+
+    const callGetCroppedImage = async () => {
+        return await getCroppedImage(
+            uploadImageURL,
+            croppedAreaPixels
+        )
+    }
+
+    const cropHandleSend = () => {
+
+        try {
+            //トリミングした画像データを取得
+            callGetCroppedImage()
+                .then((result) => {
+                    console.log(uploadImageURL.imageURL)
+                    console.log(result)
+
+                    const newImage = {
+                        name: uploadImageURL.name,
+                        image: result,
+                        imageURL: ""
+                    }
+
+                    // FirebaseのStorageにアップロード
+                    const onStorageURL = uploadToStorage(newImage, currentUser);
+                    setCropModalDisplayed(false);
+                    console.log('画像を保存しました。')
+                })
+
+        } catch (e) {
+            console.error(e)
+        }
+    }
 
     const [crop, setCrop] = useState({ x: 0, y: 0 })
     const [zoom, setZoom] = useState(1)
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
     // const [aspect, setAspect] = useState(1)
-    const imageURL = uploadImageURL ?
-        uploadImageURL : getInitCurrentUser().avatorURL
+    const imageURL = uploadImageURL.imageURL ?
+        uploadImageURL.imageURL : currentUser.avatorURL
 
     const onZoomChange = (zoom) => {
         setZoom(zoom)
     }
 
+    // chips: 第1引数は消さない様に注意！！
     const onCropComplete = (croppedArea, croppedAreaPixels) => {
-        console.log(croppedAreaPixels.width / croppedAreaPixels.height)
+        setCroppedAreaPixels(croppedAreaPixels)
+        console.log(croppedAreaPixels)
     }
 
     const useCropContainerStyle = makeStyles((theme) => ({
@@ -168,7 +206,7 @@ const CropImage = forwardRef((props, ref) => {
         <>
             <Modal
                 onClose={props.onClose}
-                open={props.displayed}
+                open={cropModalDisplayed}
             >
                 <Box className={classes_container.root}>
                     <Typography
@@ -216,7 +254,7 @@ const CropImage = forwardRef((props, ref) => {
                         <Button
                             variant="contained"
                             className={classes_btn.root + " " + classes_btn.send}
-                            onClick={props.onSend}
+                            onClick={cropHandleSend}
                         >
                             決定
                         </Button>

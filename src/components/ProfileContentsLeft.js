@@ -12,23 +12,21 @@ import {
     ContentsProfileItemValue,
     ContentsAvatorOverlay,
     ContentsUploadImageIcon,
-    ContentsAvatorOverlayText
+    ContentsAvatorOverlayText,
+    HiddenFileButton
 } from '../style/profile/Contents';
 import '../css/myProfile/ContentsLeft.css'
 import { ACCEPT_IMAGE_EXTENTION, PATH_AVATOR_ME } from '../const/CommonConst'
 import getRelativePath from '../functions/getRelativePath';
-import { useFileUpload } from "use-file-upload";
 
 const ProfileContentsLeft = () => {
-
-    const myAvator = getRelativePath(__dirname, PATH_AVATOR_ME);
 
     const [isOverAvator, setIsOverAvator] = useState(false);
 
     const { setCropModalDisplayed } = useContext(ProfileContext);
-    const { setUploadImageURL } = useContext(ProfileContext);
+    const { uploadImageURL, setUploadImageURL } = useContext(ProfileContext);
 
-    const [files, selectFiles] = useFileUpload();
+    const myAvator = getRelativePath(__dirname, PATH_AVATOR_ME);
 
     const handleOverAvator = () => {
         setIsOverAvator(true)
@@ -38,12 +36,14 @@ const ProfileContentsLeft = () => {
         setIsOverAvator(false)
     }
 
-    const handleAvatorClick = () => {
-        selectFiles({ accept: ACCEPT_IMAGE_EXTENTION }, ({ name, size, source, file }) => {
-            console.log("Files Selected", { name, size, source, file });
-            setUploadImageURL(source)
-            setCropModalDisplayed(true);
+    const handleAvatorClick = event => {
+
+        setUploadImageURL({
+            name: event.target.files[0].name,
+            image: event.target.files[0],
+            imageURL: URL.createObjectURL(event.target.files[0])
         })
+        setCropModalDisplayed(true);
     }
 
     return (
@@ -51,30 +51,31 @@ const ProfileContentsLeft = () => {
             <Box className="contents-left-container">
                 <Box className="contents-left-top-container">
                     <Box className="contents-user-icon-group">
-                        <ContentsUploadImageIcon
-                            onMouseEnter={handleOverAvator}
-                            onMouseLeave={handleOutAvator}
-                            onClick={handleAvatorClick}
-                        />
-                        <ContentsAvatar src={myAvator}
-                            onMouseEnter={handleOverAvator}
-                        />
-                        {isOverAvator === true ?
-                            <ContentsAvatorOverlay
+                        <HiddenFileButton onChange={handleAvatorClick} />
+                        <label htmlFor="icon-button-file">
+                            <ContentsUploadImageIcon
                                 onMouseEnter={handleOverAvator}
                                 onMouseLeave={handleOutAvator}
-                                onClick={handleAvatorClick}
-                            >
-                                <ContentsAvatorOverlayText
-                                    variant='body1'
-                                    component='p'
+                            />
+                            <ContentsAvatar src={myAvator}
+                                onMouseEnter={handleOverAvator}
+                            />
+                            {isOverAvator === true ?
+                                <ContentsAvatorOverlay
+                                    onMouseEnter={handleOverAvator}
+                                    onMouseLeave={handleOutAvator}
                                 >
-                                    アバターを変更
+                                    <ContentsAvatorOverlayText
+                                        variant='body1'
+                                        component='p'
+                                    >
+                                        アバターを変更
 
                                 </ContentsAvatorOverlayText>
-                            </ContentsAvatorOverlay>
-                            : ""
-                        }
+                                </ContentsAvatorOverlay>
+                                : ""
+                            }
+                        </label>
                     </Box>
                     <Box className="contents-user-name-group">
                         <ContentsUserName variant="h1">ばるす</ContentsUserName>

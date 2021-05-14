@@ -13,6 +13,7 @@ import {
 } from '../const/CommonConst'
 import getInitData from '../functions/getInitData'
 import reducer from '../reducers';
+import getInitCurrentUser from '../functions/getInitCurrentUser'
 
 const MyProfile = () => {
 
@@ -51,7 +52,17 @@ const MyProfile = () => {
     const [editorDisplayStatus, setEditorDisplayStatus] = useState(false);
     const [sendNoticeDisplayed, setSendNoticeDisplayed] = useState(false);
     const [cropModalDisplayed, setCropModalDisplayed] = useState(false);
-    const [uploadImageURL, setUploadImageURL] = useState("");
+    const [uploadImageURL, setUploadImageURL] = useState(
+        {
+            name: "",
+            image: "",
+            imageURL: ""
+        }
+    );
+
+    const [currentUser, setCurrentUser] = useState(
+        getInitCurrentUser()
+    )
 
     return (
         <>
@@ -59,6 +70,8 @@ const MyProfile = () => {
                 value={{
                     state,
                     dispatch,
+                    currentUser,
+                    setCurrentUser,
                     editorState,
                     setEditorState,
                     profileMode,

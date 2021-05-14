@@ -10,16 +10,18 @@ import CropImage from './CropImage';
 const ProfileHidden = () => {
     const { sendNoticeDisplayed, setSendNoticeDisplayed } = useContext(ProfileContext);
     const { cropModalDisplayed, setCropModalDisplayed } = useContext(ProfileContext);
+    // const { uploadImageURL, setUploadImageURL } = useContext(ProfileContext);
 
     const commonHandleClose = () => {
         setCropModalDisplayed(false)
     }
 
-    const cropHandleSend = () => {
-        setCropModalDisplayed(false)
-        // ストレージに保存する処理を入れる
-        console.log('画像を保存しました。')
-    }
+    // const cropHandleSend = () => {
+    //     setCropModalDisplayed(false)
+    //     // ストレージに保存する処理を入れる
+    //     const onStorageURL = uploadToStorage(uploadImageURL, setUploadImageURL);
+    //     console.log('画像を保存しました。')
+    // }
 
     const showNoticeImage = () => {
         const relativePath = getRelativePath(__dirname, PATH_IMAGE_SEND_FEEDBACK)
@@ -38,9 +40,7 @@ const ProfileHidden = () => {
                 onClick={commonHandleClose}
             />
             <CropImage
-                displayed={cropModalDisplayed}
                 onClose={commonHandleClose}
-                onSend={cropHandleSend}
             />
         </>
     )

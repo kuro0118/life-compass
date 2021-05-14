@@ -1,5 +1,5 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -129,12 +129,6 @@ export const ContentsTableBodyDescCell = withStyles({
     }
 })(TableCell)
 
-// export const ContentsIconButton = withStyles({
-//     root: {
-//         margin: '0 auto',
-//     },
-// })(IconButton)
-
 export const ContentsAvatar = withStyles(theme => ({
     root: {
         width: '130px',
@@ -201,6 +195,27 @@ export const ContentsUploadImageIcon = withStyles(theme => ({
         zIndex: 2,
     }
 }))(ImageSearchIcon)
+
+export const HiddenFileButton = (props) => {
+
+    const useInputFileStyle = makeStyles((theme) => ({
+        root: {
+            display: 'none'
+        }
+    }))
+
+    const classes_input_file = useInputFileStyle()
+
+    return (
+        <input
+            id="icon-button-file"
+            type='file'
+            accept='image/*'
+            className={classes_input_file.root}
+            onChange={props.onChange}
+        />
+    )
+}
 
 export const ContentsUserName = withStyles({
     root: {
