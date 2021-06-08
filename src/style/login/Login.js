@@ -1,67 +1,121 @@
+import React, { forwardRef } from 'react'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { Button, Checkbox, FormControlLabel } from '@material-ui/core';
-import { LABEL_CONTINUE_LOGIN } from '../../const/CommonConst';
+import {
+    LABEL_LOGIN,
+    LABEL_CONTINUE_LOGIN,
+    LABEL_NO_ACCOUNT,
+    LABEL_LINK_CREATE_ACCOUNT
+} from '../../const/CommonConst';
+import Link from '@material-ui/core/Link';
 
 
 export const LoginContainer = withStyles(theme => ({
     root: {
-        backgroundColor: theme.palette.login.main,
+        backgroundColor: theme.palette.profile.main,
         width: '100vw',
         height: 'auto',
-        minHeight: '100vh'
+        minHeight: '100vh',
+        position: 'relative'
     }
 }))(Box)
 
 export const LoginFormCotainer = withStyles(theme => ({
     root: {
+        position: 'absolute',
         backgroundColor: theme.palette.white.main,
+        textAlign: 'center',
         margin: '0 auto',
-        width: '350px'
+        padding: '35px',
+        width: '350px',
+        top: '50%',
+        left: '50%',
+        transform: 'translateY(-50%) translateX(-50%)',
+        boxShadow: theme.shadows[5],
     }
 }))(Box)
 
 export const HeaderText = withStyles(theme => ({
     root: {
-        backgroundColor: theme.palette.secondary.main,
-        fontSize: '22px',
+        color: theme.palette.body.main,
+        fontWeight: '550',
+        fontSize: '20px',
+        marginBottom: '50px'
     }
 }))(Typography)
 
-export const FromInputUserID = withStyles(theme => ({
-    root: {
-        backgroundColor: theme.palette.body.main,
-        fontSize: '22px',
-        marginBottom: '15px'
-    }
-}))(TextField)
+export const FormInputPassword = forwardRef((props, ref) => {
 
-export const FromInputPassword = withStyles(theme => ({
-    root: {
-        backgroundColor: theme.palette.body.main,
-        fontSize: '22px',
-        marginBottom: '10px'
-    }
-}))(TextField)
+    const useInputStyles = makeStyles(theme => ({
+        root: {
+            color: theme.palette.body.main,
+            fontSize: '22px',
+            marginBottom: '10px',
+        }
+    }))
+
+    const classes_input = useInputStyles();
+
+    return (
+        <TextField
+            className={classes_input.root}
+            fullWidth
+            inputRef={props.inputRef}
+            onChange={props.onChange}
+            id="password"
+            label="パスワード"
+            type="password"
+            variant="outlined"
+        />
+    )
+})
+
+export const FormInputMailAddress = forwardRef((props, ref) => {
+
+    const useInputStyles = makeStyles(theme => ({
+        root: {
+            color: theme.palette.body.main,
+            fontSize: '22px',
+            marginBottom: '25px'
+        }
+    }))
+
+    const classes_input = useInputStyles();
+
+    return (
+        <TextField
+            className={classes_input.root}
+            fullWidth
+            onChange={props.onChange}
+            inputRef={props.inputRef}
+            id="mailAddress"
+            label="メールアドレス"
+            variant="outlined"
+        />
+    )
+})
 
 export const CheckBoxArea = () => {
 
     const useControlAreaStyles = makeStyles((theme) => ({
         root: {
-            marginBottom: '20px'
+            display: 'block',
+            marginBottom: '20px',
+            textAlign: 'left'
         }
     }))
 
-    const useCheckBoxStyles = makeStyles((theme) => ({
+    const useCheckBoxLableStyles = makeStyles((theme) => ({
         root: {
-            fontSize: '12px'
+            fontSize: '14px'
         }
     }))
 
     const classes_control_area = useControlAreaStyles()
-    const classes_checkbox = useCheckBoxStyles()
+    const classes_checkbox_label = useCheckBoxLableStyles()
 
     return (
         <FormControlLabel
@@ -70,11 +124,16 @@ export const CheckBoxArea = () => {
             control=
             {
                 <Checkbox
-                    className={classes_checkbox.root}
+                    size='small'
                     color="secondary"
                 />
             }
-            label={LABEL_CONTINUE_LOGIN}
+            label={
+                <span
+                    className={classes_checkbox_label.root}
+                >
+                    {LABEL_CONTINUE_LOGIN}
+                </span>}
         />
     )
 }
@@ -83,10 +142,15 @@ export const LoginButton = withStyles(theme => ({
     root: {
         backgroundColor: theme.palette.secondary.main,
         color: theme.palette.white.main,
-        fontSize: '20px',
-        padding: '2.5px 7px',
-        borderRadius: '3em',
-        marginBottom: '20px'
+        display: 'block',
+        padding: '5px 50px',
+        borderRadius: '1.2em',
+        margin: '0 auto',
+        marginBottom: '20px',
+        fontSize: 17,
+        '&:hover': {
+            backgroundColor: theme.palette.login_hover.main
+        }
     }
 }))(Button)
 
@@ -94,15 +158,16 @@ export const LoginFooter = (props) => {
 
     const useControlAreaStyles = makeStyles((theme) => ({
         root: {
-            backgroundColor: theme.palette.login.main,
-            margin: '0 auto'
+            margin: '0 auto',
+            marginTop: '40px'
         }
     }))
 
     const useLinkLabelStyles = makeStyles((theme) => ({
         root: {
             color: theme.palette.body.main,
-            fontSize: '12px'
+            marginBottom: '5px',
+            fontSize: '14px'
         }
     }))
 
@@ -110,34 +175,29 @@ export const LoginFooter = (props) => {
         root: {
             color: theme.palette.secondary.main,
             marginBottom: '5px',
-            fontSize: '12px'
+            fontSize: '14px',
+            cursor: 'pointer'
         }
     }))
 
-    const classes_control_area = useControlAreaStyles(theme);
-    const classes_link_label = useLinkLabelStyles(theme);
-    const classes_link_btn = useLinkStyles(theme);
+    const classes_control_area = useControlAreaStyles();
+    const classes_link_label = useLinkLabelStyles();
+    const classes_link_btn = useLinkStyles();
 
     return (
         <Box className={classes_control_area.root}>
             <Typography
                 className={classes_link_label.root}
-                variant='body2'
-                component='p'
-            />
+            >
+                {LABEL_NO_ACCOUNT}
+            </Typography>
             <Link
-                component="button"
-                variant="body2"
-                component="h4"
+                component="p"
                 underline='none'
                 className={classes_link_btn.root}
                 onClick={props.onClick}
             >
-                <Typography
-                    className={classes_link_label.root}
-                    variant='body1'
-                    component='p'
-                />
+                {LABEL_LINK_CREATE_ACCOUNT}
             </Link>
         </Box>
     )

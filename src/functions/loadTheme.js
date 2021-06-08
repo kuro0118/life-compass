@@ -24,9 +24,13 @@ const loadTheme = () => {
             commit_hover: {
                 main: '#00526C'
             },
-            // キャンセルボタンのマウスオーバー拝啓
+            // キャンセルボタンのマウスオーバー背景
             cancel_hover: {
                 main: '#918B8B'
+            },
+            // サインインボタンのマウスオーバー背景
+            login_hover: {
+                main: '#0070D6'
             },
             // ボディテキスト
             body: {
@@ -53,6 +57,11 @@ const loadTheme = () => {
                 main: '#D1F0FF'
             }
         },
+        typography: {
+            loginButton: {
+                fontSize: 20
+            }
+        }
     });
 }
 

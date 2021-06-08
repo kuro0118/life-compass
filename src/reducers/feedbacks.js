@@ -13,13 +13,14 @@ import findMentions from '../functions/findMentions';
 import createState from '../functions/createState';
 
 const feedbacks = (state = [], action) => {
+
     switch (action.type) {
         case CREATE_EVENT:
             console.log(state)
 
             var targetNumber = action.number;
 
-            var mentions = [createState(
+            var newMentions = [createState(
                 '001',
                 '001',
                 action.userId,
@@ -33,11 +34,12 @@ const feedbacks = (state = [], action) => {
                 // numberの最大値を取得し、インクリメントする
                 const maxNumber = Math.max(...state.map((p) => p.number))
                 targetNumber = ('000' + (maxNumber + 1)).slice(-3)
-                mentions[0].number = targetNumber
+                newMentions[0].number = targetNumber
             }
 
-            return _.sortBy([...state, { number: targetNumber, mention: mentions }], 'number')
+            return _.sortBy([...state, { number: targetNumber, mention: newMentions }], 'number')
         case DELETE_EVENT:
+
             // 対象のメンションを検索する
             var mentions = findMentions(
                 state,

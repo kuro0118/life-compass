@@ -52,6 +52,13 @@ const MyProfile = () => {
     const [editorDisplayStatus, setEditorDisplayStatus] = useState(false);
     const [sendNoticeDisplayed, setSendNoticeDisplayed] = useState(false);
     const [cropModalDisplayed, setCropModalDisplayed] = useState(false);
+    const [cropImageURL, setCropImageURL] = useState(
+        {
+            name: "",
+            image: "",
+            imageURL: ""
+        }
+    );
     const [uploadImageURL, setUploadImageURL] = useState(
         {
             name: "",
@@ -82,6 +89,8 @@ const MyProfile = () => {
                     setSendNoticeDisplayed,
                     cropModalDisplayed,
                     setCropModalDisplayed,
+                    cropImageURL,
+                    setCropImageURL,
                     uploadImageURL,
                     setUploadImageURL
                 }}>

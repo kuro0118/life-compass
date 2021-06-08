@@ -32,6 +32,7 @@ const uploadToStorage = ({ name, image }, currentUser) => {
             .getDownloadURL()
             .then(fireBaseUrl => {
                 console.log(saveFileURL);
+                console.log("test")
                 // 状態を更新
                 const newImage = {
                     name: name,

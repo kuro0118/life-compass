@@ -3,7 +3,6 @@ import me from '../images/me.png'
 import visitor1 from '../images/visitor1.png'
 import visitor2 from '../images/visitor2.png'
 import logo from '../images/logo.png'
-
 export const READ_MODE = 1
 export const EDIT_MODE = 2
 export const EMOJI_LAUGH = '😄'
@@ -21,6 +20,7 @@ export const PATH_APP_LOGO = logo
 
 export const ACCEPT_IMAGE_EXTENTION = ".jpg, .jpeg, .png"
 
+export const LABEL_HEADING = "未知の『自分』を探しに行こう!!"
 export const LABEL_LOGIN = "サインイン"
 export const LABEL_CONTINUE_LOGIN = "サインインし続ける"
 export const LABEL_NO_ACCOUNT = "アカウントをお持ちでない方"

@@ -12,12 +12,13 @@ import getCroppedImage from '../functions/getCroppedImage';
 const CropImage = forwardRef((props, ref) => {
 
     const { cropModalDisplayed, setCropModalDisplayed } = useContext(ProfileContext);
-    const { uploadImageURL, setUploadImageURL } = useContext(ProfileContext);
+    const { setUploadImageURL } = useContext(ProfileContext);
+    const { cropImageURL } = useContext(ProfileContext);
     const { currentUser} = useContext(ProfileContext);
 
     const callGetCroppedImage = async () => {
         return await getCroppedImage(
-            uploadImageURL,
+            cropImageURL,
             croppedAreaPixels
         )
     }
@@ -28,18 +29,29 @@ const CropImage = forwardRef((props, ref) => {
             //トリミングした画像データを取得
             callGetCroppedImage()
                 .then((result) => {
-                    console.log(uploadImageURL.imageURL)
+                    console.log(cropImageURL.imageURL)
                     console.log(result)
 
-                    const newImage = {
-                        name: uploadImageURL.name,
+                    // Storageにアップロードするイメージオブジェクト
+                    const uploadImage = {
+                        name: cropImageURL.name,
                         image: result,
                         imageURL: ""
                     }
 
                     // FirebaseのStorageにアップロード
-                    const onStorageURL = uploadToStorage(newImage, currentUser);
-                    setCropModalDisplayed(false);
+                    uploadToStorage(uploadImage, currentUser);
+
+                    // viewに反映するイメージオブジェクト
+                    const localImage = {
+                        name: cropImageURL.name,
+                        image: result,
+                        imageURL: URL.createObjectURL(result)
+                    }
+
+                    // ローカルにアップロードした方のイメージを新しいステートに
+                    setUploadImageURL(localImage)
+                    setCropModalDisplayed(false)
                     console.log('画像を保存しました。')
                 })
 
@@ -52,8 +64,8 @@ const CropImage = forwardRef((props, ref) => {
     const [zoom, setZoom] = useState(1)
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
     // const [aspect, setAspect] = useState(1)
-    const imageURL = uploadImageURL.imageURL ?
-        uploadImageURL.imageURL : currentUser.avatorURL
+    const imageURL = cropImageURL.imageURL ?
+        cropImageURL.imageURL : currentUser.avatorURL
 
     const onZoomChange = (zoom) => {
         setZoom(zoom)
@@ -78,7 +90,6 @@ const CropImage = forwardRef((props, ref) => {
             boxShadow: theme.shadows[5],
             padding: theme.spacing(2, 4, 3),
             textAlign: 'center',
-            position: 'relative',
             zIndex: 1
         }
     }))
@@ -109,7 +120,7 @@ const CropImage = forwardRef((props, ref) => {
         }
     }))
 
-    const useCropAreaStyle = makeStyles((theme) => ({
+    const useCropAreaStyle = makeStyles(() => ({
         root: {
             height: 400,
             width: 550,
@@ -121,7 +132,7 @@ const CropImage = forwardRef((props, ref) => {
         }
     }))
 
-    const useCropSliderGroupStyle = makeStyles(theme => ({
+    const useCropSliderGroupStyle = makeStyles(() => ({
         root: {
             position: 'absolute',
             top: 480,
@@ -164,7 +175,7 @@ const CropImage = forwardRef((props, ref) => {
         }
     }))
 
-    const useCropFooterStyle = makeStyles(theme => ({
+    const useCropFooterStyle = makeStyles(() => ({
         root: {
             position: 'absolute',
             top: 540,

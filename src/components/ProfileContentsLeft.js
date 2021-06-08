@@ -23,10 +23,13 @@ const ProfileContentsLeft = () => {
 
     const [isOverAvator, setIsOverAvator] = useState(false);
 
+    const { currentUser } = useContext(ProfileContext);
     const { setCropModalDisplayed } = useContext(ProfileContext);
     const { uploadImageURL, setUploadImageURL } = useContext(ProfileContext);
+    const { cropImageURL, setCropImageURL } = useContext(ProfileContext);
 
-    const myAvator = getRelativePath(__dirname, PATH_AVATOR_ME);
+    const myAvator = uploadImageURL.imageURL ?
+        uploadImageURL.imageURL : currentUser.avatorURL
 
     const handleOverAvator = () => {
         setIsOverAvator(true)
@@ -36,9 +39,11 @@ const ProfileContentsLeft = () => {
         setIsOverAvator(false)
     }
 
+    console.log("loaded.")
+
     const handleAvatorClick = event => {
 
-        setUploadImageURL({
+        setCropImageURL({
             name: event.target.files[0].name,
             image: event.target.files[0],
             imageURL: URL.createObjectURL(event.target.files[0])
