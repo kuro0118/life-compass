@@ -13,7 +13,7 @@ const ProfileContentsRight = () => {
 
     // chips: Tabsコンポーネントは状態管理をしないとエラーが出てしまうため、注意。
     const [displayedTab, setDisplayedTab] = useState(0);
-    const { editorDisplayStatus, setEditorDisplayStatus } = useContext(ProfileContext);
+    const { setEditorDisplayStatus } = useContext(ProfileContext);
 
     const handleChange = (event, newValue) => {
         setDisplayedTab(newValue);

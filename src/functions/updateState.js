@@ -22,6 +22,8 @@ const updateStateForReaction = (state, targetNumber, targetBranchNumber, updateT
         case REACTION_SORRY_EVENT:
             target_mention.reactionSorry = updateParam.reaction
             break
+        default:
+            break
     }
 
     // メンショングループを更新する

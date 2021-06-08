@@ -18,7 +18,7 @@ const bookmarks = (state = [], action) => {
                 comment: ""
             }
 
-            action.map((el, index) => {
+            action.forEach((el, index) => {
 
                 bookmarkData.userName = el.userName
                 bookmarkData.avator = el.avator

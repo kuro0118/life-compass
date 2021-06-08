@@ -21,7 +21,7 @@ const ProfileFooter = () => {
 const DisplayedEditor = () => {
 
     const { dispatch } = useContext(ProfileContext);
-    const { editorState, setEditorState } = useContext(ProfileContext);
+    const { editorState } = useContext(ProfileContext);
     const { setEditorDisplayStatus } = useContext(ProfileContext);
     const { setSendNoticeDisplayed } = useContext(ProfileContext);
 

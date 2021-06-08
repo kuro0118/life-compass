@@ -8,8 +8,8 @@ import CropImage from './CropImage';
 
 
 const ProfileHidden = () => {
-    const { sendNoticeDisplayed, setSendNoticeDisplayed } = useContext(ProfileContext);
-    const { cropModalDisplayed, setCropModalDisplayed } = useContext(ProfileContext);
+    const { sendNoticeDisplayed } = useContext(ProfileContext);
+    const { setCropModalDisplayed } = useContext(ProfileContext);
     // const { uploadImageURL, setUploadImageURL } = useContext(ProfileContext);
 
     const commonHandleClose = () => {

@@ -13,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ThumbDownAltIcon from '@material-ui/icons/ThumbDownAlt';
 import ImageSearchIcon from '@material-ui/icons/ImageSearch';
-import { IconButton } from '@material-ui/core';
 
 // chips: rootは外観
 // chips: indicatorはタブを移動した時に動く下線部
@@ -337,7 +336,6 @@ export const ContentsProfileItemValue = withStyles({
         ],
         display: 'inline-block',
         width: '55%',
-        textAlign: 'left'
     }
 })(Typography)
 

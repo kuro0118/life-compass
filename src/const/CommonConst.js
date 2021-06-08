@@ -25,3 +25,5 @@ export const LABEL_LOGIN = "サインイン"
 export const LABEL_CONTINUE_LOGIN = "サインインし続ける"
 export const LABEL_NO_ACCOUNT = "アカウントをお持ちでない方"
 export const LABEL_LINK_CREATE_ACCOUNT = "アカウントを作成"
+
+export const IMG_ALT_FEEDBACKED = "フィードバック完了"

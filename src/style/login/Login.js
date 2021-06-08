@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { Button, Checkbox, FormControlLabel } from '@material-ui/core';
 import {
-    LABEL_LOGIN,
     LABEL_CONTINUE_LOGIN,
     LABEL_NO_ACCOUNT,
     LABEL_LINK_CREATE_ACCOUNT

@@ -31,11 +31,9 @@ import {
 import getToday from '../functions/getToday';
 import getInitCurrentUser from '../functions/getInitCurrentUser';
 import {
-    DISABLED_REPLY,
     EMOJI_GOOD,
     EMOJI_LAUGH,
-    EMOJI_SORRY,
-    ENABLED_REPLY
+    EMOJI_SORRY
 } from '../const/CommonConst'
 import initState from '../functions/initState';
 import createState from '../functions/createState';
@@ -53,7 +51,6 @@ const ProfileFeedbackTab = () => {
     )
     const [replyModalDisplayed, setReplyModalDisplayed] = useState(false);
     const [deleteConfirmDisplayed, setDeleteConfirmDisplayed] = useState(false);
-    const [toolBarDisplayMode, setToolBarDisplayMode] = useState(DISABLED_REPLY);
     const [enabledReply, setEnabledReply] = useState(false);
     const [enabledDelete, setEnabledDelete] = useState(false);
     const [modalInputData, setModalInputData] = useState("");

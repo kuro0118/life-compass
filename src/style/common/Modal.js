@@ -10,7 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import replaceNewLineCode from '../../functions/replaceNewLineCode'
 import Link from '@material-ui/core/Link';
-import ImageSendFeedback from '../../images/sendFeedback.png'
+import {
+    IMG_ALT_FEEDBACKED
+} from '../../const/CommonConst';
 
 // chips: propsは親コンポーネントのporps
 //        refは親コンポーネントのref (親⇒子へのアクセスをするため、参照を渡している)
@@ -600,7 +602,7 @@ export const SendNoticeModal = (props) => {
         >
             <Box className={classes_container.root}>
                 <Box className={classes_contents.root}>
-                    <img src={imageURL} className={classes_image.root} />
+                    <img src={imageURL} className={classes_image.root} alt={IMG_ALT_FEEDBACKED} />
                     <Typography className={classes_message.root} variant="body1">
                         {props.profileUser.userName}さんにフィードバックを送信しました！<br />
                     </Typography>

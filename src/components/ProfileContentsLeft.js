@@ -16,8 +16,6 @@ import {
     HiddenFileButton
 } from '../style/profile/Contents';
 import '../css/myProfile/ContentsLeft.css'
-import { ACCEPT_IMAGE_EXTENTION, PATH_AVATOR_ME } from '../const/CommonConst'
-import getRelativePath from '../functions/getRelativePath';
 
 const ProfileContentsLeft = () => {
 
@@ -25,8 +23,8 @@ const ProfileContentsLeft = () => {
 
     const { currentUser } = useContext(ProfileContext);
     const { setCropModalDisplayed } = useContext(ProfileContext);
-    const { uploadImageURL, setUploadImageURL } = useContext(ProfileContext);
-    const { cropImageURL, setCropImageURL } = useContext(ProfileContext);
+    const { uploadImageURL } = useContext(ProfileContext);
+    const { setCropImageURL } = useContext(ProfileContext);
 
     const myAvator = uploadImageURL.imageURL ?
         uploadImageURL.imageURL : currentUser.avatorURL

@@ -14,13 +14,18 @@ import createState from '../functions/createState';
 
 const feedbacks = (state = [], action) => {
 
+    var newMentions = null
+    var targetMentions = null
+    var targetNumber = ""
+    var newState = null
+
     switch (action.type) {
         case CREATE_EVENT:
             console.log(state)
 
-            var targetNumber = action.number;
+            targetNumber = action.number;
 
-            var newMentions = [createState(
+            newMentions = [createState(
                 '001',
                 '001',
                 action.userId,
@@ -41,23 +46,23 @@ const feedbacks = (state = [], action) => {
         case DELETE_EVENT:
 
             // 対象のメンションを検索する
-            var mentions = findMentions(
+            targetMentions = findMentions(
                 state,
                 action.number,
                 action.branchNumber
             ).mentions
 
-            console.log(mentions);
+            console.log(targetMentions);
 
-            var newMentions = mentions.filter(event => event.branchNumber !== action.branchNumber)
-            var newState = state.filter(event => event.number !== action.number)
+            newMentions = targetMentions.filter(event => event.branchNumber !== action.branchNumber)
+            newState = state.filter(event => event.number !== action.number)
             return _.sortBy([...newState, { number: action.number, mention: newMentions }], 'number')
         case REPLY_EVENT:
             console.log(action.number);
 
-            var targetNumber = action.number;
+            targetNumber = action.number;
 
-            var mentions = [createState(
+            newMentions = [createState(
                 targetNumber,
                 '',
                 action.userId,
@@ -68,17 +73,17 @@ const feedbacks = (state = [], action) => {
             )]
 
             // numberを条件に指定の明細を取得
-            var target_mentions = state.find(({ number }) => number === targetNumber).mention
+            targetMentions = state.find(({ number }) => number === targetNumber).mention
             // 明細の中から枝番が最大のものを取り出す
-            // chips:target_mentionsはスプレッド演算子でないと、最大値が上手く取れない？
-            var maxBranchNumber = Math.max(...target_mentions.map((p) => p.branchNumber))
-            mentions[0].branchNumber = ('000' + (maxBranchNumber + 1)).slice(-3)
+            // chips:targetMentionsはスプレッド演算子でないと、最大値が上手く取れない？
+            var maxBranchNumber = Math.max(...targetMentions.map((p) => p.branchNumber))
+            newMentions[0].branchNumber = ('000' + (maxBranchNumber + 1)).slice(-3)
 
-            target_mentions = [...target_mentions, mentions[0]]
+            targetMentions = [...targetMentions, newMentions[0]]
 
-            var newState = state.filter(event => event.number !== targetNumber)
+            newState = state.filter(event => event.number !== targetNumber)
 
-            return _.sortBy([...newState, { number: targetNumber, mention: target_mentions }], 'number')
+            return _.sortBy([...newState, { number: targetNumber, mention: targetMentions }], 'number')
         case FIX_EVENT:
             return state.filter(event => event.number !== action.number)
         case REACTION_LAUGH_EVENT:

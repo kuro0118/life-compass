@@ -6,7 +6,6 @@ import ListItem from '@material-ui/core/ListItem';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import ReplyIcon from '@material-ui/icons/Reply';
 import Delete from '@material-ui/icons/Delete';
-import DoneIcon from '@material-ui/icons/Done';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import SmsIcon from '@material-ui/icons/Sms';
 import editIcon from '../../images/editIcon.png'
