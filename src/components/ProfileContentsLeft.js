@@ -41,6 +41,9 @@ const ProfileContentsLeft = () => {
 
     const handleAvatorClick = event => {
 
+        // キャンセル処理
+        if (event.target.value.length === 0) return
+
         setCropImageURL({
             name: event.target.files[0].name,
             image: event.target.files[0],

@@ -120,9 +120,9 @@ const ProfileFeedbackTab = () => {
             touchMeisaiIndex === maxCount ? setEnabledDelete(true) : setEnabledDelete(false)
     };
 
-    const handleMouseOut = (mention) => {
-        const newId = mention.number + mention.branchNumber
-        setTouchMeisaiId(newId);
+    const handleMouseOut = () => {
+        // 現在タッチしているメンションIDをクリア
+        setTouchMeisaiId("");
         setEnabledReply(false)
     };
 
@@ -186,7 +186,7 @@ const ProfileFeedbackTab = () => {
                                         <FeedbackMeisai
                                             key={index}
                                             onMouseEnter={() => handleMouseOver(mention, index, mentions.mention.length)}
-                                            onMouseLeave={() => handleMouseOut(mention)}
+                                            onMouseLeave={handleMouseOut}
                                         >
                                             <FeedbackMeisaiAvatarBlock>
                                                 <FeedbackMeisaiAvatar src={mention.avator} />
